@@ -252,6 +252,27 @@ textarea.note{width:100%;min-height:70px;border:1px solid var(--line);border-rad
 .rrow p{margin:0;font-size:14.5px}
 @media (max-width:760px){.rrow{grid-template-columns:1fr;gap:6px}}
 
+/* account */
+.acct{display:flex;align-items:center;gap:10px}
+.btn.sm{padding:6px 12px;font-size:13.5px;white-space:nowrap}
+dialog.auth{border:1px solid var(--line);border-radius:14px;background:var(--surface);color:var(--ink);padding:0;width:min(420px,calc(100vw - 32px))}
+dialog.auth::backdrop{background:rgba(12,19,34,.45)}
+.auth form{padding:24px;display:flex;flex-direction:column;gap:12px}
+.auth h2{font-size:22px}
+.auth p{margin:0;color:var(--muted);font-size:14px}
+.auth label{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--muted)}
+.auth input{border:1px solid var(--line);background:var(--paper);border-radius:8px;padding:9px 11px;font-size:15px;color:var(--ink)}
+.auth .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.auth .row .btn{flex:1;justify-content:center}
+.auth .link{background:none;border:0;padding:0;color:var(--accent);cursor:pointer;font-size:13.5px;align-self:flex-start}
+.auth .msg{font-size:13.5px;border-radius:8px;padding:8px 10px}
+.auth .msg:empty{display:none}
+.auth .msg.err{background:color-mix(in srgb,var(--crit) 12%,transparent);color:var(--crit)}
+.auth .msg.ok{background:var(--accent-soft);color:var(--accent)}
+.auth [hidden]{display:none!important}
+.auth .who{font-weight:600;color:var(--ink);word-break:break-all}
+@media (max-width:760px){.acct{margin-left:auto}}
+
 .empty{padding:30px 0;color:var(--muted)}
 .foot{margin-top:60px;color:var(--muted);font-size:13px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -269,7 +290,10 @@ textarea.note{width:100%;min-height:70px;border:1px solid var(--line);border-rad
       <button role="tab" data-view="proje" aria-selected="false">Projeler</button>
       <button role="tab" data-view="kaynak" aria-selected="false">Kaynaklar</button>
     </nav>
-    <div class="sync" id="sync" aria-live="polite">Yükleniyor…</div>
+    <div class="acct">
+      <span class="sync" id="sync" aria-live="polite">Yükleniyor…</span>
+      <button class="btn sm" id="acctBtn" type="button">Giriş yap</button>
+    </div>
   </div>
 </header>
 
@@ -280,8 +304,31 @@ textarea.note{width:100%;min-height:70px;border:1px solid var(--line);border-rad
   <section class="view" id="v-metrik" hidden></section>
   <section class="view" id="v-proje" hidden></section>
   <section class="view" id="v-kaynak" hidden></section>
-  <p class="foot">İlerlemen hesabınla kaydedilir; hesap bağlantısı yoksa bu tarayıcıda saklanır. Aynı içerik Excel dosyasında da var.</p>
+  <p class="foot">Giriş yaptığında ilerlemen ve notların hesabına kaydedilir, her cihazdan erişirsin. Giriş yapmazsan yalnızca bu tarayıcıda saklanır.</p>
 </main>
+
+<dialog class="auth" id="auth" aria-labelledby="authTitle">
+  <form id="authForm" novalidate>
+    <h2 id="authTitle">Hesabına giriş yap</h2>
+    <p id="authLede">İlerlemen ve notların hesabına kaydedilsin, her cihazdan devam et.</p>
+    <div data-mode="in up">
+      <label>E-posta<input type="email" id="authEmail" autocomplete="email" required></label>
+    </div>
+    <div data-mode="in up newpw">
+      <label><span id="pwLabel">Şifre</span><input type="password" id="authPw" autocomplete="current-password" minlength="6"></label>
+    </div>
+    <div data-mode="out"><p>Giriş yapılan hesap</p><div class="who" id="authWho"></div></div>
+    <div class="msg" id="authMsg" role="status"></div>
+    <div class="row" data-mode="in"><button class="btn primary" type="submit" data-act="signin">Giriş yap</button><button class="btn" type="button" data-act="mode-up">Hesap oluştur</button></div>
+    <div class="row" data-mode="up"><button class="btn primary" type="submit" data-act="signup">Hesap oluştur</button><button class="btn" type="button" data-act="mode-in">Zaten hesabım var</button></div>
+    <div class="row" data-mode="newpw"><button class="btn primary" type="submit" data-act="newpw">Yeni şifreyi kaydet</button></div>
+    <div class="row" data-mode="out"><button class="btn" type="button" data-act="signout">Çıkış yap</button></div>
+    <button class="link" type="button" data-mode="in" data-act="reset">Şifremi unuttum</button>
+    <button class="link" type="button" data-act="close">Kapat</button>
+  </form>
+</dialog>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.min.js"></script>
 
 <script>
 /* İçerik data.json dosyasından yüklenir (bkz. boot) */
@@ -291,40 +338,154 @@ const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt
 let DATA, TOP, PH;
 
 /* ---------- state & persistence ---------- */
-let state = { topics:{}, steps:{}, notes:{} };
-const LS_KEY = "satis-akademisi-v1";
-let dbRef = null, saveTimer = null;
-function loadLocal(){ try{ const s = JSON.parse(localStorage.getItem(LS_KEY) || "null"); if(s && typeof s === "object") state = Object.assign({topics:{},steps:{},notes:{}}, s); }catch(e){} }
-function saveLocal(){ try{ localStorage.setItem(LS_KEY, JSON.stringify(state)); }catch(e){} }
+/* Yerel kopya her zaman localStorage'da tutulur. Giriş yapılınca Supabase'deki public.progress
+   tablosuna (kullanıcı başına tek satır, tüm state data sütununda) senkronlanır.
+   LS_OWNER: yerel kopyanın hangi hesapla senkron olduğu; LS_DIRTY: hesaba henüz yazılamamış değişiklik var. */
+const emptyState = () => ({ topics:{}, steps:{}, notes:{} });
+let state = emptyState();
+const LS_KEY = "satis-akademisi-v1", LS_OWNER = "satis-akademisi-owner", LS_DIRTY = "satis-akademisi-dirty";
+const lsGet = k => { try{ return localStorage.getItem(k); }catch(e){ return null; } };
+const lsSet = (k, v) => { try{ v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); }catch(e){} };
+const normState = s => Object.assign(emptyState(), s && typeof s === "object" ? s : {});
+function loadLocal(){ try{ state = normState(JSON.parse(lsGet(LS_KEY) || "null")); }catch(e){ state = emptyState(); } }
+function saveLocal(){ lsSet(LS_KEY, JSON.stringify(state)); }
 function setSync(t){ $("#sync").textContent = t; }
+
+const SB_URL = "https://peyyrkvsilrsrzymbhpt.supabase.co";
+const SB_KEY = "sb_publishable_PXxhfBxHzlQZFkG6xODoEg_zpyMe_Yj";
+const sb = window.supabase && window.supabase.createClient ? window.supabase.createClient(SB_URL, SB_KEY) : null;
+let user = null, remoteReady = false, saveTimer = null, pulledFor = null;
+
 function persist(){
   saveLocal();
   clearTimeout(saveTimer);
-  saveTimer = setTimeout(async () => {
-    if(!dbRef){ setSync("Bu tarayıcıda kaydedildi"); return; }
-    try{ await dbRef.set({ topics:state.topics, steps:state.steps, notes:state.notes, updatedAt:new Date().toISOString() }); setSync("Hesabına kaydedildi"); }
-    catch(e){ setSync("Bu tarayıcıda kaydedildi"); }
-  }, 700);
+  if(!user){ setSync("Bu tarayıcıda kaydedildi"); return; }
+  lsSet(LS_DIRTY, "1");
+  setSync("Kaydediliyor…");
+  saveTimer = setTimeout(pushRemote, 700);
 }
-async function initStore(){
-  const c = window.claude;
-  if(!c || typeof c.use !== "function"){ setSync("Bu tarayıcıda saklanıyor"); return; }
+async function pushRemote(){
+  clearTimeout(saveTimer);
+  if(!user || !remoteReady) return;
+  const { error } = await sb.from("progress").upsert({ user_id:user.id, data:state, updated_at:new Date().toISOString() });
+  if(error){ console.error("Supabase kayıt hatası", error); setSync("Hesaba kaydedilemedi, bu tarayıcıda duruyor"); return; }
+  lsSet(LS_DIRTY, null); lsSet(LS_OWNER, user.id);
+  setSync("Hesabına kaydedildi");
+}
+// Hesaptaki ilerleme ile bu tarayıcıdaki ilerlemeyi birleştir (hiçbir işaret kaybolmasın)
+const RANK = { todo:0, doing:1, done:2 };
+function mergeStates(remote, local){
+  const out = normState(JSON.parse(JSON.stringify(remote)));
+  for(const [id, s] of Object.entries(local.topics || {})) if((RANK[s] || 0) > (RANK[out.topics[id]] || 0)) out.topics[id] = s;
+  for(const [k, v] of Object.entries(local.steps || {})) if(v) out.steps[k] = true;
+  for(const [id, n] of Object.entries(local.notes || {})){
+    const r = out.notes[id];
+    if(!r) out.notes[id] = n; else if(r !== n && !r.includes(n)) out.notes[id] = r + "\n\n" + n;
+  }
+  for(const [k, v] of Object.entries(local)) if(!(k in out)) out[k] = v;
+  return out;
+}
+async function pullRemote(){
+  remoteReady = false;
+  setSync("Hesaptan yükleniyor…");
+  const { data, error } = await sb.from("progress").select("data").eq("user_id", user.id).maybeSingle();
+  if(error){ console.error("Supabase okuma hatası", error); setSync("Hesaba bağlanılamadı, bu tarayıcıda saklanıyor"); return; }
+  const remote = normState(data && data.data);
+  const owner = lsGet(LS_OWNER), dirty = lsGet(LS_DIRTY) === "1";
+  let next, mustPush;
+  if(owner === user.id){ next = dirty ? state : remote; mustPush = dirty || !data; }   // aynı hesap: hesaptaki güncel, yazılamamış değişiklik varsa yerel
+  else if(owner){ next = remote; mustPush = !data; }                                    // başka hesabın kopyası: bırak, hesaptakini al
+  else { next = mergeStates(remote, state); mustPush = !data || JSON.stringify(next) !== JSON.stringify(remote); } // girişsiz ilerleme: hesaba taşı
+  state = next; remoteReady = true;
+  saveLocal(); lsSet(LS_OWNER, user.id); renderAll();
+  if(mustPush) await pushRemote(); else { lsSet(LS_DIRTY, null); setSync("Hesabınla senkron"); }
+}
+
+/* ---------- hesap penceresi ---------- */
+const TR_ERR = [
+  [/invalid login credentials/i, "E-posta veya şifre hatalı."],
+  [/email not confirmed/i, "E-postanı henüz onaylamadın. Gelen kutundaki onay linkine tıkla."],
+  [/already registered|already been registered/i, "Bu e-posta ile zaten bir hesap var. Giriş yapmayı dene."],
+  [/password should be at least|at least 6/i, "Şifre en az 6 karakter olmalı."],
+  [/rate limit|too many/i, "Çok fazla deneme yapıldı. Birkaç dakika sonra tekrar dene."],
+  [/unable to validate email|invalid email|email address .* is invalid/i, "Geçerli bir e-posta adresi gir."],
+  [/failed to fetch|network/i, "Sunucuya ulaşılamadı. İnternet bağlantını kontrol et."]
+];
+const trErr = e => { const m = (e && e.message) || String(e); const hit = TR_ERR.find(([re]) => re.test(m)); return hit ? hit[1] : m; };
+let authMode = "in";
+const redirectUrl = () => location.origin + location.pathname;
+function authMsg(t, kind){ const m = $("#authMsg"); m.textContent = t || ""; m.className = "msg" + (kind ? " " + kind : ""); }
+function setAuthMode(mode){
+  authMode = mode;
+  $$("#auth [data-mode]").forEach(el => el.hidden = !el.dataset.mode.split(" ").includes(mode));
+  const T = { in:["Hesabına giriş yap","İlerlemen ve notların hesabına kaydedilsin, her cihazdan devam et."],
+              up:["Hesap oluştur","Kayıttan sonra e-postana bir onay linki gelecek."],
+              newpw:["Yeni şifre belirle","Hesabın için yeni bir şifre gir."],
+              out:["Hesabın","İlerlemen bu hesaba kaydediliyor."] }[mode];
+  $("#authTitle").textContent = T[0]; $("#authLede").textContent = T[1];
+  $("#pwLabel").textContent = mode === "newpw" ? "Yeni şifre" : "Şifre";
+  $("#authPw").autocomplete = mode === "in" ? "current-password" : "new-password";
+  if(mode === "out") $("#authWho").textContent = user ? user.email : "";
+  authMsg("");
+}
+function openAuth(mode){ setAuthMode(mode || (user ? "out" : "in")); const d = $("#auth"); if(!d.open) d.showModal(); }
+function updateAcctBtn(){ $("#acctBtn").textContent = user ? "Hesabım" : "Giriş yap"; }
+async function authAction(act){
+  const email = $("#authEmail").value.trim(), pw = $("#authPw").value;
+  const needPw = act === "signin" || act === "signup" || act === "newpw";
+  if((act === "signin" || act === "signup" || act === "reset") && !/^\S+@\S+\.\S+$/.test(email)) return authMsg("Geçerli bir e-posta adresi gir.", "err");
+  if(needPw && pw.length < 6) return authMsg("Şifre en az 6 karakter olmalı.", "err");
+  authMsg("Bekle…");
   try{
-    const [db, user] = await Promise.all([c.use("db"), c.use("user")]);
-    if(!db || !user){ setSync("Bu tarayıcıda saklanıyor"); return; }
-    const uid = await user.id();
-    if(!uid){ setSync("Bu tarayıcıda saklanıyor"); return; }
-    dbRef = db.doc("data/users/" + uid + "/progress");
-    const snap = await dbRef.get();
-    if(snap.exists){
-      const d = snap.data() || {};
-      state = { topics: Object.assign({}, d.topics||{}), steps: Object.assign({}, d.steps||{}), notes: Object.assign({}, d.notes||{}) };
-      saveLocal(); renderAll(); setSync("Hesabınla senkron");
-    } else {
-      const hasLocal = Object.keys(state.topics).length || Object.keys(state.steps).length || Object.keys(state.notes).length;
-      if(hasLocal) persist(); else setSync("Hesabınla senkron");
+    if(act === "signin"){
+      const { error } = await sb.auth.signInWithPassword({ email, password:pw }); if(error) throw error;
+      $("#auth").close();
+    } else if(act === "signup"){
+      const { data, error } = await sb.auth.signUp({ email, password:pw, options:{ emailRedirectTo:redirectUrl() } }); if(error) throw error;
+      if(data.user && Array.isArray(data.user.identities) && data.user.identities.length === 0) return authMsg("Bu e-posta ile zaten bir hesap var. Giriş yapmayı dene.", "err");
+      if(data.session) $("#auth").close();
+      else authMsg("Hesap oluşturuldu. " + email + " adresine gelen onay linkine tıkla, sonra buradan giriş yap.", "ok");
+    } else if(act === "reset"){
+      const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo:redirectUrl() }); if(error) throw error;
+      authMsg("Şifre sıfırlama linki " + email + " adresine gönderildi.", "ok");
+    } else if(act === "newpw"){
+      const { error } = await sb.auth.updateUser({ password:pw }); if(error) throw error;
+      authMsg("Yeni şifren kaydedildi.", "ok"); setTimeout(() => $("#auth").close(), 1200);
+    } else if(act === "signout"){
+      if(user) await pushRemote();
+      const { error } = await sb.auth.signOut(); if(error) throw error;
+      $("#auth").close();
     }
-  }catch(e){ dbRef = null; setSync("Bu tarayıcıda saklanıyor"); }
+  }catch(e){ console.error(e); authMsg(trErr(e), "err"); }
+}
+function onSignedOut(){
+  user = null; remoteReady = false; pulledFor = null; clearTimeout(saveTimer);
+  // Hesaptan çıkınca bu tarayıcıdaki kopya silinir (ortak bilgisayarda başkası görmesin)
+  // Hesaba yazılamamış değişiklik varsa silinmez; bir sonraki girişte hesaba gönderilir.
+  if(lsGet(LS_OWNER) && lsGet(LS_DIRTY) !== "1"){ state = emptyState(); lsSet(LS_KEY, null); lsSet(LS_OWNER, null); lsSet(LS_DIRTY, null); renderAll(); }
+  updateAcctBtn(); setSync("Giriş yapılmadı, bu tarayıcıda saklanıyor");
+}
+function initAuth(){
+  $("#acctBtn").addEventListener("click", () => sb ? openAuth() : alert("Hesap servisine ulaşılamadı. İnternet bağlantını kontrol edip sayfayı yenile."));
+  $("#authForm").addEventListener("submit", e => { e.preventDefault(); if(authMode === "out") return; authAction(authMode === "up" ? "signup" : authMode === "newpw" ? "newpw" : "signin"); });
+  $("#authForm").addEventListener("click", e => {
+    const b = e.target.closest("[data-act]"); if(!b || b.type === "submit") return;
+    const a = b.dataset.act;
+    if(a === "close") $("#auth").close(); else if(a === "mode-up") setAuthMode("up"); else if(a === "mode-in") setAuthMode("in"); else authAction(a);
+  });
+  if(!sb){ setSync("Hesap servisine ulaşılamadı, bu tarayıcıda saklanıyor"); return; }
+  sb.auth.onAuthStateChange((event, session) => {
+    // Supabase kilitlenmesin diye asıl işler bir sonraki turda yapılır
+    setTimeout(() => {
+      if(event === "PASSWORD_RECOVERY"){ user = session && session.user; updateAcctBtn(); openAuth("newpw"); }
+      if(session && session.user){
+        user = session.user; updateAcctBtn();
+        if(pulledFor !== user.id){ pulledFor = user.id; pullRemote(); }
+      } else if(event === "SIGNED_OUT" || event === "INITIAL_SESSION"){ onSignedOut(); }
+    }, 0);
+  });
+  // Sekme kapanırken bekleyen kaydı hemen gönder
+  document.addEventListener("visibilitychange", () => { if(document.visibilityState === "hidden" && lsGet(LS_DIRTY) === "1") pushRemote(); });
 }
 const st = id => state.topics[id] || "todo";
 function setStatus(id, s){ if(s === "todo") delete state.topics[id]; else state.topics[id] = s; persist(); }
@@ -602,7 +763,7 @@ async function boot(){
   }
   TOP = Object.fromEntries(DATA.topics.map(t => [t.id, t]));
   PH = Object.fromEntries(DATA.phases.map(p => [p.kod, p]));
-  loadLocal(); renderAll(); setSync("Bu tarayıcıda saklanıyor"); initStore();
+  loadLocal(); renderAll(); initAuth();
 }
 boot();
 </script>
