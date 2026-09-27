@@ -273,6 +273,75 @@ dialog.auth::backdrop{background:rgba(12,19,34,.45)}
 .auth .who{font-weight:600;color:var(--ink);word-break:break-all}
 @media (max-width:760px){.acct{margin-left:auto}}
 
+/* quiz */
+dialog.quizdlg{width:min(680px,calc(100vw - 32px))}
+.qz{padding:22px 24px 24px}
+.qzhead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.qzhead .k{font-size:13px;color:var(--muted)}
+.qzhead h2{font-size:20px;margin-top:2px}
+.qzbar{height:6px;background:var(--track);border-radius:99px;overflow:hidden;margin:14px 0 18px}
+.qzbar i{display:block;height:100%;background:var(--accent);transition:width .3s}
+.qzq{font:600 17px/1.45 var(--text);margin:0 0 14px}
+.qzopts{display:flex;flex-direction:column;gap:8px}
+.qzopt{display:flex;gap:10px;align-items:flex-start;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:11px 14px;cursor:pointer;color:var(--ink);font-size:15px;line-height:1.45}
+.qzopt:hover:not(:disabled){border-color:var(--accent)}
+.qzopt:disabled{cursor:default}
+.qzopt .L{font-weight:700;color:var(--muted);flex:none;width:18px}
+.qzopt.right{border-color:var(--accent);background:var(--accent-soft)}
+.qzopt.right .L{color:var(--accent)}
+.qzopt.wrong{border-color:var(--crit);background:color-mix(in srgb,var(--crit) 10%,transparent)}
+.qzopt.wrong .L{color:var(--crit)}
+.qzfb{margin-top:14px;border-radius:10px;padding:12px 14px;font-size:14.5px;line-height:1.55}
+.qzfb.ok{background:var(--accent-soft)}
+.qzfb.no{background:color-mix(in srgb,var(--crit) 10%,transparent)}
+.qzfb b{display:block;margin-bottom:2px}
+.qzfb.ok b{color:var(--accent)} .qzfb.no b{color:var(--crit)}
+.qznav{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
+.qzscore{font:800 56px/1 var(--display);color:var(--accent);letter-spacing:-.03em}
+.qzscore.low{color:var(--crit)}
+.qzlist{list-style:none;margin:14px 0 0;padding:0;max-height:40vh;overflow:auto;border-top:1px solid var(--line)}
+.qzlist li{padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+.qzlist li b{display:block;font-weight:600;margin-bottom:3px}
+.qzlist li span{color:var(--accent)}
+.qzbox{margin-top:10px;border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.qzbox p{margin:0;font-size:14px;color:var(--muted)}
+.qbadge{font-size:12px;padding:1px 8px;border-radius:99px;background:var(--paper);border:1px solid var(--line);color:var(--muted);font-weight:500}
+.qbadge.good{background:var(--accent-soft);border-color:transparent;color:var(--accent)}
+.qbadge.low{background:color-mix(in srgb,var(--crit) 12%,transparent);border-color:transparent;color:var(--crit)}
+/* tekrar & portföy & tempo */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.card .k{font-size:12.5px;color:var(--muted)}
+.card h4{margin:0;font:600 15.5px/1.35 var(--text)}
+.card .act{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;margin-top:16px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.stat .v{font:700 26px/1.1 var(--display)}
+.stat .n{font-size:13px;color:var(--muted);margin-top:3px}
+.pace{margin-top:24px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 20px}
+.pace h3{font-size:17px}
+.pace p{margin:6px 0 0;color:var(--muted);font-size:14.5px}
+.pace .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:10px}
+.pace input[type=date]{border:1px solid var(--line);background:var(--paper);border-radius:8px;padding:7px 10px;color:var(--ink)}
+.pace .behind{color:var(--crit);font-weight:600} .pace .ahead{color:var(--accent);font-weight:600}
+.pace ul{margin:10px 0 0;padding-left:18px;font-size:14.5px}
+.pace ul button{background:none;border:0;padding:0;color:var(--ink);cursor:pointer;text-align:left}
+.pace ul button:hover{color:var(--accent)}
+.week.now{border-color:var(--accent);box-shadow:inset 0 3px 0 var(--accent)}
+.outbox{display:grid;grid-template-columns:1fr;gap:6px}
+.outbox input,.outbox textarea{width:100%;border:1px solid var(--line);border-radius:9px;background:var(--surface);padding:8px 10px;color:var(--ink)}
+.outbox textarea{min-height:56px;resize:vertical}
+.outbox small{color:var(--muted);font-size:12.5px}
+.pitem{display:grid;grid-template-columns:90px 1fr;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+.pitem .t{font-size:13px;color:var(--muted);font-weight:600}
+.pitem h4{margin:0;font:600 15.5px/1.35 var(--text)}
+.pitem h4 button{background:none;border:0;padding:0;color:var(--ink);cursor:pointer;text-align:left;font:inherit}
+.pitem h4 button:hover{color:var(--accent)}
+.pitem .c{font-size:13px;color:var(--muted);margin-top:2px}
+.pitem p{margin:6px 0 0;font-size:14.5px;white-space:pre-wrap}
+.pitem a{font-size:14px;word-break:break-all}
+@media (max-width:640px){.pitem{grid-template-columns:1fr;gap:4px}.qz{padding:18px}}
+
 .empty{padding:30px 0;color:var(--muted)}
 .foot{margin-top:60px;color:var(--muted);font-size:13px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -288,6 +357,8 @@ dialog.auth::backdrop{background:rgba(12,19,34,.45)}
       <button role="tab" data-view="metod" aria-selected="false">Metodolojiler</button>
       <button role="tab" data-view="metrik" aria-selected="false">Metrikler</button>
       <button role="tab" data-view="proje" aria-selected="false">Projeler</button>
+      <button role="tab" data-view="tekrar" aria-selected="false">Quiz ve tekrar</button>
+      <button role="tab" data-view="portfoy" aria-selected="false">Portföy</button>
       <button role="tab" data-view="kaynak" aria-selected="false">Kaynaklar</button>
     </nav>
     <div class="acct">
@@ -303,6 +374,8 @@ dialog.auth::backdrop{background:rgba(12,19,34,.45)}
   <section class="view" id="v-metod" hidden></section>
   <section class="view" id="v-metrik" hidden></section>
   <section class="view" id="v-proje" hidden></section>
+  <section class="view" id="v-tekrar" hidden></section>
+  <section class="view" id="v-portfoy" hidden></section>
   <section class="view" id="v-kaynak" hidden></section>
   <p class="foot">Giriş yaptığında ilerlemen ve notların hesabına kaydedilir, her cihazdan erişirsin. Giriş yapmazsan yalnızca bu tarayıcıda saklanır.</p>
 </main>
@@ -328,6 +401,14 @@ dialog.auth::backdrop{background:rgba(12,19,34,.45)}
   </form>
 </dialog>
 
+<dialog class="auth quizdlg" id="quizDlg" aria-labelledby="qzTitle">
+  <div class="qz">
+    <header class="qzhead"><div><div class="k" id="qzMode"></div><h2 id="qzTitle"></h2></div><button class="btn sm" type="button" data-qz="close" aria-label="Quizi kapat">Kapat</button></header>
+    <div class="qzbar"><i id="qzBar"></i></div>
+    <div id="qzBody"></div>
+  </div>
+</dialog>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.min.js"></script>
 
 <script>
@@ -341,7 +422,9 @@ let DATA, TOP, PH;
 /* Yerel kopya her zaman localStorage'da tutulur. Giriş yapılınca Supabase'deki public.progress
    tablosuna (kullanıcı başına tek satır, tüm state data sütununda) senkronlanır.
    LS_OWNER: yerel kopyanın hangi hesapla senkron olduğu; LS_DIRTY: hesaba henüz yazılamamış değişiklik var. */
-const emptyState = () => ({ topics:{}, steps:{}, notes:{} });
+// quiz: {konuId: {best, last, n, at, wrong:[soru indeksleri]}}, review: {konuId: {stage, due}},
+// outputs: {konuId: {url, text, at}}, calc: {hesaplayıcı değerleri}, startDate: "YYYY-MM-DD"
+const emptyState = () => ({ topics:{}, steps:{}, notes:{}, quiz:{}, review:{}, outputs:{}, calc:{}, startDate:null });
 let state = emptyState();
 const LS_KEY = "satis-akademisi-v1", LS_OWNER = "satis-akademisi-owner", LS_DIRTY = "satis-akademisi-dirty";
 const lsGet = k => { try{ return localStorage.getItem(k); }catch(e){ return null; } };
@@ -382,7 +465,16 @@ function mergeStates(remote, local){
     const r = out.notes[id];
     if(!r) out.notes[id] = n; else if(r !== n && !r.includes(n)) out.notes[id] = r + "\n\n" + n;
   }
-  for(const [k, v] of Object.entries(local)) if(!(k in out)) out[k] = v;
+  for(const [id, q] of Object.entries(local.quiz || {})){
+    const r = out.quiz[id];
+    if(!r || (q.best || 0) > (r.best || 0)) out.quiz[id] = q;
+  }
+  // Diğer alanlar: hesaptaki değer öncelikli, sadece bu tarayıcıda olanlar eklenir
+  for(const [k, v] of Object.entries(local)){
+    if(["topics","steps","notes","quiz"].includes(k)) continue;
+    if(v && typeof v === "object" && !Array.isArray(v)) out[k] = Object.assign({}, v, out[k] || {});
+    else if(out[k] == null) out[k] = v;
+  }
   return out;
 }
 async function pullRemote(){
@@ -488,7 +580,35 @@ function initAuth(){
   document.addEventListener("visibilitychange", () => { if(document.visibilityState === "hidden" && lsGet(LS_DIRTY) === "1") pushRemote(); });
 }
 const st = id => state.topics[id] || "todo";
-function setStatus(id, s){ if(s === "todo") delete state.topics[id]; else state.topics[id] = s; persist(); }
+function setStatus(id, s){
+  if(s === "todo") delete state.topics[id]; else state.topics[id] = s;
+  // Tamamlanan konu tekrar takvimine girer; tamamlanmamışa dönerse çıkar
+  if(s === "done"){ if(!state.review[id]) state.review[id] = { stage:0, due:addDays(todayStr(), REVIEW_DAYS[0]) }; }
+  else delete state.review[id];
+  persist();
+}
+
+/* ---------- tarih yardımcıları ---------- */
+const pad2 = n => String(n).padStart(2, "0");
+const dateStr = d => `${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`;
+const parseDate = s => { const [y,m,d] = String(s).split("-").map(Number); return new Date(y, m-1, d); };
+const todayStr = () => dateStr(new Date());
+const addDays = (s, n) => { const d = parseDate(s); d.setDate(d.getDate() + n); return dateStr(d); };
+const daysBetween = (a, b) => Math.round((parseDate(b) - parseDate(a)) / 86400000);
+const fmtDate = s => parseDate(s).toLocaleDateString("tr-TR", { day:"numeric", month:"long", year:"numeric" });
+
+/* ---------- tempo (başlangıç tarihine göre plan) ---------- */
+function pace(){
+  if(!state.startDate) return null;
+  const week = Math.max(1, Math.floor(daysBetween(state.startDate, todayStr()) / 7) + 1);
+  const cur = DATA.weeks.find(w => +w.hafta === week) || null;
+  const expected = DATA.weeks.filter(w => +w.hafta < week).reduce((a, w) => a + w.konular.length, 0);
+  const done = DATA.topics.filter(t => st(t.id) === "done").length;
+  // Tamamlanan konu sayısı plana göre kaçıncı haftanın sonuna denk geliyor?
+  let cum = 0, planWeek = 0;
+  for(const w of DATA.weeks){ cum += w.konular.length; if(cum <= done) planWeek = +w.hafta; else break; }
+  return { week, cur, expected, done, diff: planWeek - (week - 1), started: daysBetween(state.startDate, todayStr()) >= 0 };
+}
 const nextStatus = s => s === "todo" ? "doing" : s === "doing" ? "done" : "todo";
 const LBL = { todo:"Başlamadı", doing:"Devam ediyor", done:"Tamamlandı" };
 
@@ -513,7 +633,7 @@ function show(view){
   $$(".view").forEach(v => v.hidden = v.id !== "v-" + view);
   window.scrollTo({ top:0 });
 }
-$$("nav.tabs button").forEach(b => b.addEventListener("click", () => { if(!DATA) return; if(b.dataset.view === "yol") renderYol(); if(b.dataset.view === "proje") renderProje(); show(b.dataset.view); }));
+$$("nav.tabs button").forEach(b => b.addEventListener("click", () => { if(!DATA) return; if(b.dataset.view === "yol") renderYol(); if(b.dataset.view === "proje") renderProje(); if(b.dataset.view === "tekrar") renderTekrar(); if(b.dataset.view === "portfoy") renderPortfoy(); show(b.dataset.view); }));
 
 /* ---------- Yol haritası ---------- */
 function renderYol(){
@@ -535,7 +655,21 @@ function renderYol(){
       <span class="m"><span class="meter"><i style="width:${s.p}%"></i></span><span class="meterlbl"><span>${s.done}/${s.n} tamam</span><span>%${s.p}</span></span></span>
     </button>`;
   }).join("");
-  const weeks = DATA.weeks.map(w => `<div class="week"><header><b>Hafta ${w.hafta}</b><span>${w.faz}, ${w.saat} saat</span></header><ul>${
+  const pc = pace();
+  const due = dueReviews().length;
+  const paceCard = !pc ? `<div class="pace"><h3>Plana göre neredesin?</h3>
+      <p>Başlangıç tarihini gir; bu haftanın konularını ve plana göre ileride mi geride mi olduğunu gösterelim.</p>
+      <div class="row"><input type="date" id="startDate" aria-label="Başlangıç tarihi" value="${todayStr()}"><button class="btn primary sm" type="button" data-start="save">Başlangıç tarihini kaydet</button></div></div>`
+    : !pc.started ? `<div class="pace"><h3>Programın ${fmtDate(state.startDate)} tarihinde başlıyor</h3>
+      <p>Başladığında haftalık tempoyu burada göreceksin.</p>
+      <div class="row"><input type="date" id="startDate" aria-label="Başlangıç tarihi" value="${state.startDate}"><button class="btn sm" type="button" data-start="save">Tarihi güncelle</button></div></div>`
+    : `<div class="pace"><h3>${pc.week > DATA.weeks.length ? "Planlanan 42 hafta tamamlandı" : `Bugün ${pc.week}. haftadasın`}</h3>
+      <p>Plana göre şu ana kadar ${pc.expected} konu bitmiş olmalıydı, sen ${pc.done} konu tamamladın:
+        ${pc.diff < 0 ? `<span class="behind">${-pc.diff} hafta geridesin.</span>` : pc.diff > 0 ? `<span class="ahead">${pc.diff} hafta ileridesin.</span>` : `<span class="ahead">tam planda.</span>`}
+        ${due ? ` Bugün tekrar edilecek ${due} konun var.` : ""}</p>
+      ${pc.cur ? `<p style="margin-top:10px"><b style="color:var(--ink)">Bu haftanın konuları (${pc.cur.saat} saat)</b></p><ul>${pc.cur.konular.map(id => `<li><button data-topic="${id}">${st(id)==="done" ? "✓ " : ""}${esc(TOP[id].konu)}</button></li>`).join("")}</ul>` : ""}
+      <div class="row">${due ? `<button class="btn primary sm" type="button" data-goto="tekrar">Tekrarlara git (${due})</button>` : ""}<input type="date" id="startDate" aria-label="Başlangıç tarihi" value="${state.startDate}"><button class="btn sm" type="button" data-start="save">Başlangıç tarihini değiştir</button></div></div>`;
+  const weeks = DATA.weeks.map(w => `<div class="week ${pc && pc.started && +w.hafta === pc.week ? "now" : ""}"><header><b>Hafta ${w.hafta}</b><span>${w.faz}, ${w.saat} saat</span></header><ul>${
     w.konular.map(id => { const s = st(id); return `<li class="${s}"><span class="dot ${s}"></span><button data-topic="${id}">${esc(TOP[id].konu)}</button></li>`; }).join("")
   }</ul></div>`).join("");
   $("#v-yol").innerHTML = `
@@ -547,6 +681,7 @@ function renderYol(){
       <div class="big"><span class="pct">%${o.p}</span><span class="lbl">${o.d} / ${o.n} konu tamam<br>${o.hd} / ${o.h} saat</span></div>
     </div>
     <div class="route"><ol>${stops}</ol></div>
+    ${paceCard}
     ${next ? `<div class="next">
       <div><div class="k">${st(next.id)==="doing" ? "Devam ettiğin konu" : "Sıradaki konu"}</div><h3>${esc(next.konu)}</h3><div class="k">${next.id}, ${esc(next.fazAd)}, ${next.saat} saat</div></div>
       <span></span>
@@ -555,6 +690,10 @@ function renderYol(){
     <div class="section"><h2>Haftalık plan</h2><p class="lede">Konular saat yüküne göre haftalara dağıtıldı. Capstone projelerine ilgili fazda başlayıp F10'da tamamlayabilirsin.</p><div class="weeks">${weeks}</div></div>`;
   $$("#v-yol [data-phase]").forEach(b => b.addEventListener("click", () => { filt.phase = b.dataset.phase; renderMufredat(); show("mufredat"); }));
   $$("#v-yol [data-topic]").forEach(b => b.addEventListener("click", () => openTopic(b.dataset.topic)));
+  $$("#v-yol [data-start]").forEach(b => b.addEventListener("click", () => {
+    const v = $("#startDate").value; if(!v) return;
+    state.startDate = v; persist(); renderYol();
+  }));
 }
 
 /* ---------- Müfredat ---------- */
@@ -574,7 +713,7 @@ function topicHTML(t){
     <div class="trow">
       <button class="st ${s}" data-cycle="${t.id}" aria-label="Durum: ${LBL[s]}. Değiştirmek için tıkla" title="${LBL[s]}">${CHECK}</button>
       <button class="topen" data-open="${t.id}" aria-expanded="${open}">${esc(t.konu)}</button>
-      <span class="tmeta">${t.anlatim ? '<span class="hasl">Ders</span>' : ''}<span>${t.id}</span><span>${t.saat} sa</span><span class="pr ${esc(t.oncelik)}">${esc(t.oncelik)}</span></span>
+      <span class="tmeta">${quizBadge(t.id)}${t.anlatim ? '<span class="hasl">Ders</span>' : ''}<span>${t.id}</span><span>${t.saat} sa</span><span class="pr ${esc(t.oncelik)}">${esc(t.oncelik)}</span></span>
     </div>
     <div class="tdet" ${open ? "" : "hidden"}>
       <div class="blk"><h5>Öğrenme hedefi</h5><p>${esc(t.hedef)}</p><h5>Teori ve özet</h5><p>${esc(t.teori)}</p></div>
@@ -587,6 +726,12 @@ function topicHTML(t){
         ${t.anlatim.map(p => `<p>${esc(p)}</p>`).join("")}
         <div class="daily"><h5>Gündelik hayattan örnek</h5><p>${esc(t.ornek)}</p></div>
       </div>` : `<p class="nolesson full">Bu konunun anlatımı sonraki güncellemede eklenecek.</p>`}
+      <div class="blk full"><h5>Quiz</h5>${quizBoxHTML(t.id)}</div>
+      <div class="blk full"><h5>Çıktım (portföy)</h5><div class="outbox">
+        <small>Beklenen çıktı: ${esc(t.cikti)}. Hazırladığın dosyanın linkini (Google Drive, Notion vb.) ve kısa bir not ekle.</small>
+        <input type="url" data-out-url="${t.id}" placeholder="https://… (çıktının linki)" value="${esc((state.outputs[t.id] || {}).url || "")}" aria-label="Çıktı linki">
+        <textarea data-out-text="${t.id}" placeholder="Ne hazırladın, sonuç ne oldu?" aria-label="Çıktı notu">${esc((state.outputs[t.id] || {}).text || "")}</textarea>
+      </div></div>
       <div class="blk full"><h5>Notlarım</h5><textarea class="note" data-note="${t.id}" placeholder="Bu konuda öğrendiklerin, uygulama sonuçların…">${esc(state.notes[t.id] || "")}</textarea></div>
     </div></div>`;
 }
@@ -631,7 +776,21 @@ document.addEventListener("click", e => {
 });
 document.addEventListener("input", e => {
   const n = e.target.closest("[data-note]");
-  if(n){ const v = n.value.trim(); if(v) state.notes[n.dataset.note] = n.value; else delete state.notes[n.dataset.note]; persist(); }
+  if(n){ const v = n.value.trim(); if(v) state.notes[n.dataset.note] = n.value; else delete state.notes[n.dataset.note]; persist(); return; }
+  const ou = e.target.closest("[data-out-url],[data-out-text]");
+  if(ou){
+    const id = ou.dataset.outUrl || ou.dataset.outText;
+    const cur = Object.assign({ url:"", text:"" }, state.outputs[id]);
+    if(ou.dataset.outUrl) cur.url = ou.value.trim(); else cur.text = ou.value;
+    if(cur.url || cur.text.trim()){ cur.at = todayStr(); state.outputs[id] = cur; } else delete state.outputs[id];
+    persist();
+  }
+});
+document.addEventListener("click", e => {
+  const g = e.target.closest("[data-goto]");
+  if(g && DATA){ const v = g.dataset.goto; if(v === "tekrar") renderTekrar(); if(v === "portfoy") renderPortfoy(); show(v); return; }
+  const q = e.target.closest("[data-quiz]");
+  if(q && DATA){ startQuiz(q.dataset.quiz, q.dataset.qmode || "full"); }
 });
 function refreshTopic(id){
   const el = document.getElementById("t-" + id.replace(".","-"));
@@ -702,14 +861,21 @@ function calcOut(){
 }
 function renderOuts(){ $("#outs").innerHTML = calcOut().map(([n,v,d,c]) => `<div class="out ${c||""}"><div class="v">${v}</div><div class="n"><b>${n}</b>, ${d}</div></div>`).join(""); }
 function renderMetrik(){
+  // Kayıtlı değerler varsa onları, yoksa örnek değerleri kullan
+  for(const [k,,def] of CALC) calcVals[k] = state.calc && state.calc[k] != null ? state.calc[k] : def;
   $("#v-metrik").innerHTML = `<h2>Metrikler ve hesaplayıcı</h2>
-    <p class="lede">Örnek değerleri kendi rakamlarınla değiştir; birim ekonomisi, sales velocity ve ters huni anında hesaplanır. Kırmızı sonuç dikkat edilmesi gereken yeri gösterir.</p>
+    <p class="lede">Örnek değerleri kendi rakamlarınla değiştir; birim ekonomisi, sales velocity ve ters huni anında hesaplanır. Kırmızı sonuç dikkat edilmesi gereken yeri gösterir. Girdiğin değerler kaydedilir.</p>
+    <div class="controls"><button class="btn sm" type="button" id="calcReset">Örnek değerlere dön</button></div>
     <div class="calc">
       <div class="inputs">${CALC.map(([k,l]) => `<label>${esc(l)}<input type="number" inputmode="decimal" data-k="${k}" value="${calcVals[k]}"></label>`).join("")}</div>
       <div class="outs" id="outs"></div>
     </div>
     <div class="section"><h2>Metrik sözlüğü</h2><div class="gloss">${DATA.metrics.map(m => `<div class="gl"><b>${esc(m.ad)}</b><code>${esc(m.formul)}</code><span>${esc(m.yorum)}</span></div>`).join("")}</div></div>`;
-  $$("#v-metrik input").forEach(i => i.addEventListener("input", e => { calcVals[e.target.dataset.k] = parseFloat(e.target.value) || 0; renderOuts(); }));
+  $$("#v-metrik input").forEach(i => i.addEventListener("input", e => {
+    const k = e.target.dataset.k; calcVals[k] = parseFloat(e.target.value) || 0;
+    state.calc = Object.assign({}, state.calc, { [k]:calcVals[k] }); persist(); renderOuts();
+  }));
+  $("#calcReset").addEventListener("click", () => { state.calc = {}; persist(); renderMetrik(); });
   renderOuts();
 }
 
@@ -750,7 +916,203 @@ function renderKaynak(){
   $$("#v-kaynak [data-rt]").forEach(b => b.addEventListener("click", () => { rf.tur = b.dataset.rt; renderKaynak(); }));
 }
 
-function renderAll(){ renderYol(); renderMufredat(); renderMetod(); renderMetrik(); renderProje(); renderKaynak(); }
+/* ---------- Quiz ---------- */
+// Tamamlanan konu 7, 30 ve 90 gün sonra 5 soruluk tekrarla geri gelir; üçünü geçen konu kalıcı sayılır.
+const REVIEW_DAYS = [7, 30, 90], REVIEW_RETRY = 3, QUIZ_PASS = 0.8, REVIEW_SIZE = 5;
+let QUIZ = null, quizLoading = null, qs = null;
+function loadQuiz(){
+  if(QUIZ) return Promise.resolve(QUIZ);
+  if(!quizLoading) quizLoading = fetch("quiz.json", { cache:"no-cache" })
+    .then(r => { if(!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+    .then(d => (QUIZ = d))
+    .catch(e => { quizLoading = null; throw e; });
+  return quizLoading;
+}
+const shuffle = a => { const b = a.slice(); for(let i = b.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; } return b; };
+const pct = (a, b) => b ? Math.round(a / b * 100) : 0;
+const quizPct = id => { const q = state.quiz[id]; return q ? pct(q.best, q.n) : null; };
+function quizBadge(id){
+  const p = quizPct(id); if(p == null) return "";
+  return `<span class="qbadge ${p >= 80 ? "good" : p < 60 ? "low" : ""}" title="Quizdeki en iyi sonucun">Quiz %${p}</span>`;
+}
+function quizBoxHTML(id){
+  const q = state.quiz[id];
+  const info = q ? `En iyi sonucun ${q.best}/${q.n} (%${pct(q.best, q.n)}), son denemen ${q.last}/${q.n} (${fmtDate(q.at)}).`
+                 : "Bu konuyu ne kadar anladığını 15 soruyla test et. Yanlış cevapta doğru cevap ve açıklaması gösterilir.";
+  const wrong = q && q.wrong && q.wrong.length ? `<button class="btn sm" type="button" data-quiz="${id}" data-qmode="wrong">Yanlışları tekrar çöz (${q.wrong.length})</button>` : "";
+  return `<div class="qzbox"><p>${info}</p><div style="display:flex;gap:8px;flex-wrap:wrap">${wrong}<button class="btn primary sm" type="button" data-quiz="${id}">${q ? "Quizi tekrar çöz" : "Quizi başlat"}</button></div></div>`;
+}
+async function startQuiz(id, mode){
+  const dlg = $("#quizDlg");
+  $("#qzTitle").textContent = TOP[id].konu;
+  $("#qzMode").textContent = "Sorular yükleniyor…";
+  $("#qzBody").innerHTML = ""; $("#qzBar").style.width = "0%";
+  if(!dlg.open) dlg.showModal();
+  let all;
+  try{ all = (await loadQuiz())[id] || []; }
+  catch(e){ console.error(e); $("#qzMode").textContent = ""; $("#qzBody").innerHTML = `<div class="qzfb no"><b>Sorular yüklenemedi.</b>İnternet bağlantını kontrol edip tekrar dene.</div>`; return; }
+  let idx = all.map((_, i) => i);
+  if(mode === "wrong"){ const w = (state.quiz[id] && state.quiz[id].wrong) || []; idx = idx.filter(i => w.includes(i)); }
+  idx = shuffle(idx);
+  if(mode === "review") idx = idx.slice(0, REVIEW_SIZE);
+  if(!idx.length){ $("#qzMode").textContent = ""; $("#qzBody").innerHTML = `<p>Bu konu için çözülecek soru yok.</p>`; return; }
+  qs = { id, mode, items: idx.map(i => ({ i, q: all[i], order: shuffle([0, 1, 2, 3]) })), pos:0, correct:0, wrong:[], answered:false };
+  $("#qzMode").textContent = mode === "review" ? `Tekrar, ${qs.items.length} soru` : mode === "wrong" ? `Yanlışları tekrar, ${qs.items.length} soru` : `Quiz, ${qs.items.length} soru`;
+  renderQuestion();
+}
+function renderQuestion(){
+  const it = qs.items[qs.pos];
+  $("#qzBar").style.width = pct(qs.pos, qs.items.length) + "%";
+  $("#qzBody").innerHTML = `<div style="font-size:13px;color:var(--muted);margin-bottom:6px">Soru ${qs.pos + 1} / ${qs.items.length}</div>
+    <p class="qzq">${esc(it.q.q)}</p>
+    <div class="qzopts">${it.order.map((o, k) => `<button class="qzopt" type="button" data-opt="${o}"><span class="L">${"ABCD"[k]}</span><span>${esc(it.q.o[o])}</span></button>`).join("")}</div>
+    <div id="qzFb" aria-live="polite"></div>`;
+  qs.answered = false;
+  $("#qzBody .qzopt").focus();
+}
+function answerQuestion(o){
+  if(!qs || qs.answered) return;
+  qs.answered = true;
+  const it = qs.items[qs.pos], ok = o === it.q.a;
+  if(ok) qs.correct++; else qs.wrong.push(it.i);
+  $$("#qzBody .qzopt").forEach(b => { b.disabled = true; const v = +b.dataset.opt; if(v === it.q.a) b.classList.add("right"); else if(v === o) b.classList.add("wrong"); });
+  const last = qs.pos === qs.items.length - 1;
+  $("#qzFb").innerHTML = `<div class="qzfb ${ok ? "ok" : "no"}"><b>${ok ? "Doğru!" : "Yanlış. Doğru cevap: " + esc(it.q.o[it.q.a])}</b>${esc(it.q.e)}</div>
+    <div class="qznav"><button class="btn primary" type="button" data-qz="next">${last ? "Sonucu gör" : "Sonraki soru"}</button></div>`;
+  $("#qzBar").style.width = pct(qs.pos + 1, qs.items.length) + "%";
+  $("#qzFb [data-qz=next]").focus();
+}
+function finishQuiz(){
+  const { id, mode, correct, items, wrong } = qs, n = items.length, p = pct(correct, n);
+  let note = "";
+  if(mode === "full"){
+    const prev = state.quiz[id] || { best:0 };
+    state.quiz[id] = { best:Math.max(prev.best || 0, correct), last:correct, n, at:todayStr(), wrong:wrong.slice() };
+    note = prev.best && correct > prev.best ? "Yeni en iyi sonucun!" : "";
+  } else if(mode === "wrong"){
+    // Bu turda doğru çözülen sorular yanlış listesinden çıkar
+    const rec = state.quiz[id]; if(rec) rec.wrong = (rec.wrong || []).filter(i => wrong.includes(i));
+  } else if(mode === "review"){
+    const r = Object.assign({ stage:0 }, state.review[id]);
+    if(correct / n >= QUIZ_PASS){
+      r.stage = (r.stage || 0) + 1;
+      r.due = r.stage < REVIEW_DAYS.length ? addDays(todayStr(), REVIEW_DAYS[r.stage]) : null;
+      note = r.due ? `Tekrarı geçtin. Bir sonraki tekrar ${fmtDate(r.due)}.` : "Üç tekrarı da geçtin; bu konu artık kalıcı öğrenildi sayılıyor.";
+    } else {
+      r.due = addDays(todayStr(), REVIEW_RETRY);
+      note = `%${Math.round(QUIZ_PASS * 100)} altında kaldın; bu konu ${fmtDate(r.due)} tarihinde tekrar sorulacak.`;
+    }
+    r.last = todayStr(); state.review[id] = r;
+  }
+  persist();
+  $("#qzBar").style.width = "100%";
+  const all = QUIZ[id];
+  const rest = mode === "full" && wrong.length ? `<button class="btn" type="button" data-qz="wrong">Yanlışları tekrar çöz (${wrong.length})</button>` : "";
+  $("#qzBody").innerHTML = `<div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap"><span class="qzscore ${p < 60 ? "low" : ""}">%${p}</span><span style="color:var(--muted)">${correct} / ${n} doğru${note ? "<br>" + esc(note) : ""}</span></div>
+    ${wrong.length ? `<h3 style="margin-top:18px;font-size:16px">Yanlış yaptığın sorular</h3><ul class="qzlist">${wrong.map(i => `<li><b>${esc(all[i].q)}</b>Doğru cevap: <span>${esc(all[i].o[all[i].a])}</span><br>${esc(all[i].e)}</li>`).join("")}</ul>` : `<p style="margin-top:14px">Hepsini doğru bildin.</p>`}
+    <div class="qznav">${rest}<button class="btn" type="button" data-qz="again">Baştan çöz (15 soru)</button><button class="btn primary" type="button" data-qz="close">Kapat</button></div>`;
+  $("#qzBody [data-qz=close]").focus();
+}
+function initQuiz(){
+  const dlg = $("#quizDlg");
+  dlg.addEventListener("click", e => {
+    const o = e.target.closest("[data-opt]"); if(o){ answerQuestion(+o.dataset.opt); return; }
+    const b = e.target.closest("[data-qz]"); if(!b) return;
+    const a = b.dataset.qz;
+    if(a === "close") dlg.close();
+    else if(a === "next"){ if(qs.pos < qs.items.length - 1){ qs.pos++; renderQuestion(); } else finishQuiz(); }
+    else if(a === "wrong") startQuiz(qs.id, "wrong");
+    else if(a === "again") startQuiz(qs.id, "full");
+  });
+  // Klavye: 1-4 veya A-D ile cevapla
+  dlg.addEventListener("keydown", e => {
+    if(!qs || qs.answered || e.ctrlKey || e.metaKey || e.altKey) return;
+    const k = "1234".indexOf(e.key) >= 0 ? "1234".indexOf(e.key) : "abcd".indexOf(e.key.toLowerCase());
+    if(k >= 0){ const b = $$("#qzBody .qzopt")[k]; if(b){ e.preventDefault(); b.click(); } }
+  });
+  dlg.addEventListener("close", () => {
+    const id = qs && qs.id; qs = null;
+    renderYol(); renderTekrar(); if(id && document.getElementById("t-" + id.replace(".", "-"))) refreshTopic(id);
+  });
+}
+
+/* ---------- Quiz ve tekrar sayfası ---------- */
+function ensureReviews(){
+  // Tekrar özelliğinden önce tamamlanmış konuları da takvime al
+  let changed = false;
+  for(const t of DATA.topics) if(st(t.id) === "done" && !state.review[t.id]){ state.review[t.id] = { stage:0, due:addDays(todayStr(), REVIEW_DAYS[0]) }; changed = true; }
+  return changed;
+}
+function dueReviews(){
+  const t = todayStr();
+  return Object.entries(state.review || {}).filter(([id, r]) => TOP[id] && r.due && r.due <= t).map(([id, r]) => Object.assign({ id }, r)).sort((a, b) => a.due.localeCompare(b.due));
+}
+const stageLbl = s => ["1. tekrar (7 gün)", "2. tekrar (30 gün)", "3. tekrar (90 gün)"][s] || "Kalıcı";
+function renderTekrar(){
+  const t = todayStr(), due = dueReviews();
+  const upcoming = Object.entries(state.review).filter(([id, r]) => TOP[id] && r.due && r.due > t).sort((a, b) => a[1].due.localeCompare(b[1].due));
+  const mastered = Object.entries(state.review).filter(([id, r]) => TOP[id] && !r.due).length;
+  const taken = Object.keys(state.quiz).filter(id => TOP[id]);
+  const avg = taken.length ? Math.round(taken.reduce((a, id) => a + quizPct(id), 0) / taken.length) : 0;
+  const weak = taken.filter(id => quizPct(id) < 60).sort((a, b) => quizPct(a) - quizPct(b));
+  const doneNoQuiz = DATA.topics.filter(x => st(x.id) === "done" && !state.quiz[x.id]);
+  const card = (id, k, btns) => `<div class="card"><div class="k">${id}, ${esc(TOP[id].fazAd)}${k ? ", " + k : ""}</div><h4>${esc(TOP[id].konu)}</h4><div class="act">${btns}</div></div>`;
+  const qb = (id, label, mode, primary) => `<button class="btn sm ${primary ? "primary" : ""}" type="button" data-quiz="${id}"${mode ? ` data-qmode="${mode}"` : ""}>${label}</button>`;
+  $("#v-tekrar").innerHTML = `<h2>Quiz ve tekrar</h2>
+    <p class="lede">Her konunun 15 soruluk quizi var. Bir konuyu tamamlandı işaretlediğinde 7 gün sonra 5 soruluk kısa bir tekrarla geri gelir. %${Math.round(QUIZ_PASS * 100)} ve üzeri yaparsan sonraki tekrar 30, sonra 90 gün sonra gelir; üçünü geçen konu kalıcı sayılır. Altında kalırsan ${REVIEW_RETRY} gün sonra tekrar sorulur.</p>
+    <div class="stats">
+      <div class="stat"><div class="v">${due.length}</div><div class="n">Bugün tekrar edilecek</div></div>
+      <div class="stat"><div class="v">${taken.length} / ${DATA.topics.length}</div><div class="n">Quizi çözülen konu</div></div>
+      <div class="stat"><div class="v">%${avg}</div><div class="n">Ortalama en iyi skor</div></div>
+      <div class="stat"><div class="v">${mastered}</div><div class="n">Kalıcı öğrenilen konu</div></div>
+    </div>
+    <div class="section"><h2>Bugün tekrar edilecekler</h2>
+      ${due.length ? `<div class="cards">${due.map(r => card(r.id, stageLbl(r.stage), qb(r.id, "5 soruyla tekrar et", "review", true) + `<button class="btn sm" type="button" data-topic="${r.id}">Konuyu aç</button>`)).join("")}</div>`
+        : `<p class="lede">Bugün tekrar edilecek konu yok.${upcoming.length ? ` Sıradaki tekrar ${fmtDate(upcoming[0][1].due)}.` : " Konuları tamamlandı olarak işaretledikçe tekrar takvimi burada oluşur."}</p>`}
+    </div>
+    ${weak.length ? `<div class="section"><h2>Güçlendirmen gereken konular</h2><p class="lede">Quizde %60'ın altında kaldığın konular.</p>
+      <div class="cards">${weak.map(id => card(id, "en iyi %" + quizPct(id), ((state.quiz[id].wrong || []).length ? qb(id, `Yanlışları çöz (${state.quiz[id].wrong.length})`, "wrong", true) : "") + qb(id, "Quizi tekrar çöz", "", !(state.quiz[id].wrong || []).length))).join("")}</div></div>` : ""}
+    ${doneNoQuiz.length ? `<div class="section"><h2>Tamamladığın ama quizini çözmediğin konular</h2>
+      <div class="cards">${doneNoQuiz.slice(0, 12).map(x => card(x.id, "", qb(x.id, "Quizi başlat", "", true))).join("")}</div>${doneNoQuiz.length > 12 ? `<p class="count">ve ${doneNoQuiz.length - 12} konu daha</p>` : ""}</div>` : ""}
+    <div class="section"><h2>Herhangi bir konunun quizini çöz</h2>
+      <div class="controls"><select id="anyQuiz" aria-label="Quiz konusu" style="flex:1 1 320px;min-width:0">${DATA.phases.map(p => `<optgroup label="${p.kod} ${esc(p.ad)}">${DATA.topics.filter(x => x.faz === p.kod).map(x => `<option value="${x.id}">${x.id} ${esc(x.konu)}${quizPct(x.id) != null ? ` (%${quizPct(x.id)})` : ""}</option>`).join("")}</optgroup>`).join("")}</select>
+      <button class="btn primary" type="button" id="anyQuizGo">Quizi başlat</button></div>
+    </div>
+    ${upcoming.length ? `<div class="section"><h2>Yaklaşan tekrarlar</h2><div class="res">${upcoming.slice(0, 15).map(([id, r]) => `<div class="rrow" style="grid-template-columns:150px 1fr"><div class="t">${fmtDate(r.due)}</div><div><h4><button data-topic="${id}" style="background:none;border:0;padding:0;color:var(--ink);cursor:pointer;text-align:left;font:inherit">${esc(TOP[id].konu)}</button></h4><div class="by">${stageLbl(r.stage)}</div></div></div>`).join("")}</div></div>` : ""}`;
+  $("#anyQuizGo").addEventListener("click", () => startQuiz($("#anyQuiz").value, "full"));
+  $$("#v-tekrar [data-topic]").forEach(b => b.addEventListener("click", () => openTopic(b.dataset.topic)));
+}
+
+/* ---------- Portföy ---------- */
+const safeUrl = u => /^https?:\/\//i.test(u || "") ? u : "";
+function renderPortfoy(){
+  const items = DATA.topics.filter(t => state.outputs[t.id]);
+  const missing = DATA.topics.filter(t => st(t.id) === "done" && !state.outputs[t.id]);
+  const body = DATA.phases.map(p => {
+    const list = items.filter(t => t.faz === p.kod); if(!list.length) return "";
+    return `<div class="phase-block"><header><span class="c">${p.kod}</span><h2>${esc(p.ad)}</h2><span class="w">${list.length} çıktı</span></header>${list.map(t => {
+      const o = state.outputs[t.id], u = safeUrl(o.url);
+      return `<div class="pitem"><div class="t">${t.id}</div><div><h4><button data-topic="${t.id}">${esc(t.konu)}</button></h4>
+        <div class="c">Beklenen çıktı: ${esc(t.cikti)}${o.at ? `, eklenme ${fmtDate(o.at)}` : ""}</div>
+        ${u ? `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(u)}</a>` : o.url ? `<div class="c">Link: ${esc(o.url)} (http:// veya https:// ile başlamalı)</div>` : ""}
+        ${o.text ? `<p>${esc(o.text)}</p>` : ""}</div></div>`;
+    }).join("")}</div>`;
+  }).join("");
+  $("#v-portfoy").innerHTML = `<h2>Portföy</h2>
+    <p class="lede">Her konunun somut bir çıktısı var. Konu detayındaki "Çıktım" alanına dosyanın linkini ve kısa bir not eklediğinde burada toplanır. 42 haftanın sonunda bu sayfa, yaptığın işin kanıtı olur.</p>
+    <div class="stats">
+      <div class="stat"><div class="v">${items.length} / ${DATA.topics.length}</div><div class="n">Çıktısı eklenen konu</div></div>
+      <div class="stat"><div class="v">${missing.length}</div><div class="n">Tamamlanıp çıktısı eksik konu</div></div>
+    </div>
+    ${missing.length ? `<div class="section"><h2>Çıktısı eksik tamamlanmış konular</h2><div class="cards">${missing.slice(0, 12).map(t => `<div class="card"><div class="k">${t.id}, beklenen: ${esc(t.cikti)}</div><h4>${esc(t.konu)}</h4><div class="act"><button class="btn sm primary" type="button" data-topic="${t.id}">Çıktını ekle</button></div></div>`).join("")}</div>${missing.length > 12 ? `<p class="count">ve ${missing.length - 12} konu daha</p>` : ""}</div>` : ""}
+    <div class="section">${body || `<p class="empty">Henüz çıktı eklemedin. Müfredatta bir konuyu açıp "Çıktım" alanını doldurduğunda burada görünecek.</p>`}</div>`;
+  $$("#v-portfoy [data-topic]").forEach(b => b.addEventListener("click", () => openTopic(b.dataset.topic)));
+}
+
+function renderAll(){
+  if(ensureReviews()) persist();
+  renderYol(); renderMufredat(); renderMetod(); renderMetrik(); renderProje(); renderTekrar(); renderPortfoy(); renderKaynak();
+}
 async function boot(){
   try{
     const r = await fetch("data.json", { cache:"no-cache" });
@@ -763,7 +1125,7 @@ async function boot(){
   }
   TOP = Object.fromEntries(DATA.topics.map(t => [t.id, t]));
   PH = Object.fromEntries(DATA.phases.map(p => [p.kod, p]));
-  loadLocal(); renderAll(); initAuth();
+  loadLocal(); initQuiz(); renderAll(); initAuth();
 }
 boot();
 </script>
