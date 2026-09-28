@@ -1,0 +1,64 @@
+{
+  "satici": "Nova Çözüm",
+  "roles": {
+    "TM": { "ad": "Teknik müdür", "odak": "Teknik uygunluk, entegrasyon ve operasyonel risk", "kisiler": [["Kerem Yılmaz", "Kerem Bey"], ["Elif Şahin", "Elif Hanım"], ["Burak Aydın", "Burak Bey"]] },
+    "GM": { "ad": "Genel müdür", "odak": "Şirkete etkisi, büyüme, nakit ve risk", "kisiler": [["Selim Arslan", "Selim Bey"], ["Ayşe Demir", "Ayşe Hanım"], ["Murat Koç", "Murat Bey"]] },
+    "SA": { "ad": "Satın alma müdürü", "odak": "Fiyat, şartlar, prosedür ve tedarikçi riski", "kisiler": [["Serkan Öztürk", "Serkan Bey"], ["Derya Kaya", "Derya Hanım"]] },
+    "FM": { "ad": "Finans müdürü", "odak": "Geri dönüş süresi, nakit akışı ve bütçe", "kisiler": [["Levent Çelik", "Levent Bey"], ["Nazlı Yıldız", "Nazlı Hanım"]] },
+    "OP": { "ad": "Operasyon şefi", "odak": "Günlük iş yükü, kullanım kolaylığı ve ekibin kabulü", "kisiler": [["Hakan Doğan", "Hakan Bey"], ["Gül Aksoy", "Gül Hanım"]] }
+  },
+  "personas": {
+    "analitik": { "ad": "Analitik ve detaycı", "d": "Rakam, kanıt ve süreç ister; abartıyı hemen yakalar.", "ipucu": "Önceki satışçının notu: \"Her iddiayı sorguluyor, veri ve kaynak istiyor.\"", "base": 0, "mods": { "kanit": 2, "veri": 2, "abarti": -3, "belirsiz": -2 } },
+    "zorlu": { "ad": "Şüpheci ve zorlu", "d": "Satışçılara güvenmez, sınar; sabrı azdır.", "ipucu": "Önceki satışçının notu: \"Soğuk ve test eden sorular soruyor; geçen yıl bir tedarikçiyle kötü deneyim yaşamış.\"", "base": -10, "mods": { "abarti": -3, "israr": -2, "baski": -2, "durust": 2, "empati": 1, "kanit": 1 } },
+    "fiyat": { "ad": "Fiyat odaklı", "d": "Her konuyu maliyete bağlar, pazarlığı sever.", "ipucu": "Önceki satışçının notu: \"İlk cümlede fiyat soruyor; indirim almadan hiçbir şey imzalamamış.\"", "base": 0, "mods": { "roi": 2, "deger": 1, "indirim": -2, "belirsiz": -1 } },
+    "iliski": { "ad": "İlişki odaklı", "d": "Güvendiği insanla çalışır; baskıdan hoşlanmaz.", "ipucu": "Önceki satışçının notu: \"Sıcak, sohbeti seviyor; mevcut tedarikçisiyle yıllardır çalışıyor.\"", "base": 5, "mods": { "empati": 2, "dinleme": 1, "referans": 1, "israr": -3, "baski": -3 } },
+    "aceleci": { "ad": "Aceleci yönetici", "d": "Az vakti var; kısa, net ve sonuç odaklı konuşma ister.", "ipucu": "Önceki satışçının notu: \"Toplantıya geç giriyor, erken çıkıyor. Lafı uzatanın sözünü kesiyor.\"", "base": 0, "mods": { "net": 2, "ozet": 2, "uzun": -3, "belirsiz": -2 } },
+    "kararsiz": { "ad": "Kararsız ve pasif", "d": "İlgili görünür ama karar vermekten kaçınır.", "ipucu": "Önceki satışçının notu: \"Her toplantı olumlu geçiyor ama hiçbir şey ilerlemiyor.\"", "base": 5, "mods": { "net_adim": 2, "risk_azalt": 2, "pilot": 1, "baski": -2, "belirsiz": -1 } }
+  },
+  "stages": {
+    "soguk": { "ad": "Soğuk arama", "hedef": "Müşterinin ilgisini çekip ihtiyaç keşfi için tarihi belli bir toplantı almak.", "plan": ["acilis_soguk", "soguk_ilgi", "soguk_engel", "durum", "sorun", "etki", "soguk_engel", "sonraki_soguk"], "basari": "Toplantı alındı", "kanal": "Telefon" },
+    "kesif": { "ad": "İhtiyaç keşfi", "hedef": "Gerçek acı noktalarını, etkisini ve karar sürecini ortaya çıkarıp net bir sonraki adım (demo veya pilot) almak.", "plan": ["acilis_kesif", "durum", "sorun", "etki", "sorun", "etki", "sorun", "gizli", "rol", "teknik", "karar", "risk", "karar", "sonraki"], "basari": "Sonraki adım kazanıldı", "kanal": "Müşterinin ofisinde toplantı" },
+    "demo": { "ad": "Teknik sunum / demo", "hedef": "Çözümün müşterinin sorunlarını nasıl çözdüğünü göstermek, teknik itirazları gidermek ve pilot ya da teklif aşamasına geçmek.", "plan": ["acilis_demo", "teyit", "etki", "teknik", "teknik", "teknik", "rol", "rol", "itiraz", "risk", "karar", "sonraki"], "basari": "Sonraki adım kazanıldı", "kanal": "Müşterinin toplantı salonunda demo" },
+    "teklif": { "ad": "Teklif ve itirazlar", "hedef": "Teklife gelen itirazları yönetmek ve kararı netleştirmek.", "plan": ["acilis_teklif", "itiraz", "rol", "rakip", "itiraz", "risk", "rol", "risk", "karar", "itiraz", "kapanis"], "basari": "Satış kapandı", "kanal": "Teklif sonrası toplantı" },
+    "muzakere": { "ad": "Müzakere ve kapanış", "hedef": "Değeri korurken şartlarda anlaşmak ve sözleşmeyi imzaya getirmek.", "plan": ["acilis_muz", "muz", "muz", "rol", "muz", "risk", "itiraz", "muz", "rol", "muz_son", "kapanis"], "basari": "Satış kapandı", "kanal": "Müzakere toplantısı" }
+  },
+  "sizes": {
+    "kobi": { "ad": "KOBİ", "calisan": "yaklaşık 60 çalışanlı" },
+    "orta": { "ad": "Orta ölçek", "calisan": "yaklaşık 350 çalışanlı" },
+    "kurumsal": { "ad": "Kurumsal", "calisan": "2.000'den fazla çalışanlı" }
+  },
+  "comps": {
+    "yok": { "ad": "Rakip yok", "d": "Müşteri henüz bir çözüm aramıyor.", "base": 5 },
+    "mevcut": { "ad": "Mevcut tedarikçiden memnun", "d": "Müşteri başka bir firmayla çalışıyor ve genel olarak memnun.", "base": -8 },
+    "ihale": { "ad": "Aktif ihale", "d": "Müşteri 3 firmadan teklif topluyor.", "base": 0 }
+  },
+  "diffs": {
+    "kolay": { "ad": "Kolay", "d": "Müşteri toleranslı, ikna göstergesi ve koç ipuçları açık.", "base": 10, "pos": 5, "neg": 0.8, "sabir": 6, "esik": 60, "gauge": true, "koc": true },
+    "orta": { "ad": "Orta", "d": "Gerçekçi bir görüşme; ikna göstergesi açık.", "base": 0, "pos": 4.5, "neg": 1, "sabir": 4, "esik": 68, "gauge": true, "koc": false },
+    "zor": { "ad": "Zor", "d": "İkna göstergesi gizli, müşterinin sabrı az, hatalar daha pahalı.", "base": -5, "pos": 4, "neg": 1.3, "sabir": 3, "esik": 75, "gauge": false, "koc": false }
+  },
+  "skills": {
+    "acilis": { "ad": "Açılış ve ilk izlenim", "konular": ["F2.12", "F1.07"] },
+    "kesif": { "ad": "İhtiyaç keşfi", "konular": ["F4.01", "F3.04", "F1.06"] },
+    "deger": { "ad": "Değer anlatımı ve uzmanlık", "konular": ["F1.05", "F4.02", "F4.03"] },
+    "itiraz": { "ad": "İtiraz ve müzakere", "konular": ["F4.06", "F4.07", "F4.08"] },
+    "paydas": { "ad": "Paydaş ve karar süreci", "konular": ["F3.02", "F8.02", "F8.03"] },
+    "kapanis": { "ad": "Kapanış ve sonraki adım", "konular": ["F1.12", "F4.09"] }
+  },
+  "slotSkill": {
+    "acilis_soguk": "acilis", "acilis_kesif": "acilis", "acilis_demo": "acilis", "acilis_teklif": "itiraz", "acilis_muz": "itiraz",
+    "soguk_engel": "itiraz", "soguk_ilgi": "deger", "durum": "kesif", "sorun": "kesif", "etki": "kesif", "gizli": "kesif", "teyit": "kesif",
+    "teknik": "deger", "rol": "deger", "itiraz": "itiraz", "rakip": "itiraz", "risk": "itiraz", "muz": "itiraz", "muz_son": "itiraz",
+    "karar": "paydas", "sonraki_soguk": "kapanis", "sonraki": "kapanis", "kapanis": "kapanis", "olay": "deger", "takip": "deger"
+  },
+  "med": {
+    "M": "Metrics: ölçülebilir kazanç",
+    "E": "Economic buyer: bütçe sahibi",
+    "D1": "Decision criteria: karar kriterleri",
+    "D2": "Decision process: karar süreci",
+    "P": "Paper process: satın alma ve sözleşme süreci",
+    "I": "Identify pain: acı noktası",
+    "C1": "Champion: içeriden destekçi",
+    "C2": "Competition: rakipler ve alternatifler"
+  }
+}

@@ -49,8 +49,8 @@ nav.tabs button:hover{color:var(--ink);background:var(--surface)}
 nav.tabs button[aria-selected="true"]{color:var(--ink);background:var(--surface);box-shadow:inset 0 -2px 0 var(--accent)}
 .sync{font-size:11.5px;line-height:1.25;color:var(--muted);max-width:118px}
 /* Geniş ekranda başlık, 9 sekme tek satıra sığsın diye içerikten biraz daha geniş; sığmayınca sekmeler başlığın altına iner */
-header.top .wrap{max-width:1320px}
-@media (max-width:1360px){.bar{flex-wrap:wrap;height:auto;padding-top:10px;padding-bottom:6px;gap:8px 18px}nav.tabs{order:3;flex-basis:100%}.acct{margin-left:auto}}
+header.top .wrap{max-width:1400px}
+@media (max-width:1440px){.bar{flex-wrap:wrap;height:auto;padding-top:10px;padding-bottom:6px;gap:8px 18px}nav.tabs{order:3;flex-basis:100%}.acct{margin-left:auto}}
 @media (max-width:760px){.brand small{display:none}}
 @media (max-width:480px){.wrap{padding:0 16px}.acct{gap:8px}.sync{max-width:78px;font-size:11px}}
 
@@ -395,6 +395,50 @@ dialog.quizdlg{width:min(680px,calc(100vw - 32px))}
 details.out{margin-top:14px}
 details.out summary{cursor:pointer;color:var(--muted);font-size:14px}
 
+/* simülasyon */
+.simmodes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.simmode{text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:14px 16px;cursor:pointer;color:var(--ink)}
+.simmode b{display:block;font-size:15.5px}
+.simmode span{display:block;font-size:13.5px;color:var(--muted);margin-top:3px}
+.simmode[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.simmode:disabled{cursor:not-allowed;opacity:.6}
+.simform{display:grid;grid-template-columns:1fr 1fr;gap:18px 28px;margin-top:24px}
+.simform h4{margin:0 0 4px;font:600 14px/1.3 var(--text);color:var(--muted)}
+.simhint{margin:6px 0 0;font-size:13.5px;color:var(--muted)}
+.simcheck{grid-column:1/-1;display:flex;gap:8px;align-items:center;font-size:14.5px}
+.simcheck input{accent-color:var(--accent);width:16px;height:16px}
+.simbrief li{grid-template-columns:150px 1fr}
+.simchat{display:flex;flex-direction:column;gap:10px;margin-top:18px;padding:16px;background:var(--paper);border:1px solid var(--line);border-radius:14px;max-height:56vh;overflow-y:auto}
+.bub{max-width:80%;padding:10px 14px;border-radius:14px;font-size:15px;line-height:1.5}
+.bub .who{display:block;font-size:12px;color:var(--muted);margin-bottom:2px;font-weight:600}
+.bub.m{align-self:flex-start;background:var(--surface);border:1px solid var(--line);border-bottom-left-radius:4px}
+.bub.s{align-self:flex-end;background:var(--accent-soft);border-bottom-right-radius:4px}
+.bub.n{align-self:center;max-width:90%;background:none;color:var(--muted);font-style:italic;font-size:13.5px;text-align:center;padding:2px 8px}
+.coach{align-self:flex-end;max-width:80%;font-size:13px;line-height:1.45;border-left:3px solid var(--line);background:var(--surface);border-radius:6px;padding:6px 10px;color:var(--muted)}
+.coach b{color:var(--ink)}
+.coach.good{border-left-color:var(--accent)} .coach.good b{color:var(--accent)}
+.coach.low{border-left-color:var(--crit)} .coach.low b{color:var(--crit)}
+.simstat{display:grid;grid-template-columns:2fr 1fr auto;gap:18px;align-items:center;margin-top:14px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 16px}
+.simg{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted)}
+.simg .meter{flex:1;min-width:60px}
+.simg b{color:var(--ink);font:700 16px var(--display)}
+.meter i.good{background:var(--accent)} .meter i.low{background:var(--crit)}
+.hearts{letter-spacing:2px;color:var(--crit)!important}
+.simfree{display:flex;gap:10px;margin-top:14px;align-items:flex-end}
+.simfree textarea{flex:1;min-height:80px;border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:10px 12px;color:var(--ink);resize:vertical}
+.simcurve{width:100%;max-width:640px;height:auto;margin-top:10px;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.simcurve .ln{fill:none;stroke:var(--accent);stroke-width:2.5}
+.simcurve .pt{fill:var(--accent)}
+.simcurve .thr{stroke:var(--amber);stroke-dasharray:5 4}
+.simcurve .lbl{fill:var(--amber);font-size:11px;font-family:var(--text)}
+.verdict.bad{background:color-mix(in srgb,var(--crit) 12%,transparent)}
+.simturn{grid-template-columns:80px 1fr!important}
+.simturn p{margin:0 0 6px;font-size:14.5px}
+.simq{color:var(--muted);font-style:italic}
+.simbest{background:var(--accent-soft);border-radius:8px;padding:8px 10px}
+.mk{font-weight:700} .mk.good{color:var(--accent)} .mk.low{color:var(--crit)}
+@media (max-width:760px){.simmodes,.simform{grid-template-columns:1fr}.simstat{grid-template-columns:1fr;gap:6px}.bub,.coach{max-width:92%}.simbrief li{grid-template-columns:1fr;gap:2px}}
+
 .empty{padding:30px 0;color:var(--muted)}
 .foot{margin-top:60px;color:var(--muted);font-size:13px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -412,6 +456,7 @@ details.out summary{cursor:pointer;color:var(--muted);font-size:14px}
       <button role="tab" data-view="metrik" aria-selected="false">Metrikler</button>
       <button role="tab" data-view="proje" aria-selected="false">Projeler</button>
       <button role="tab" data-view="tekrar" aria-selected="false">Quiz ve tekrar</button>
+      <button role="tab" data-view="sim" aria-selected="false">Simülasyon</button>
       <button role="tab" data-view="portfoy" aria-selected="false">Portföy</button>
       <button role="tab" data-view="kaynak" aria-selected="false">Kaynaklar</button>
     </nav>
@@ -430,6 +475,7 @@ details.out summary{cursor:pointer;color:var(--muted);font-size:14px}
   <section class="view" id="v-metrik" hidden></section>
   <section class="view" id="v-proje" hidden></section>
   <section class="view" id="v-tekrar" hidden></section>
+  <section class="view" id="v-sim" hidden></section>
   <section class="view" id="v-portfoy" hidden></section>
   <section class="view" id="v-kaynak" hidden></section>
   <p class="foot">Giriş yaptığında ilerlemen ve notların hesabına kaydedilir, her cihazdan erişirsin. Giriş yapmazsan yalnızca bu tarayıcıda saklanır.</p>
@@ -699,7 +745,7 @@ function show(view){
   $$(".view").forEach(v => v.hidden = v.id !== "v-" + view);
   window.scrollTo({ top:0 });
 }
-$$("nav.tabs button").forEach(b => b.addEventListener("click", () => { if(!DATA) return; if(b.dataset.view === "yol") renderYol(); if(b.dataset.view === "plan") renderPlan(); if(b.dataset.view === "proje") renderProje(); if(b.dataset.view === "tekrar") renderTekrar(); if(b.dataset.view === "portfoy") renderPortfoy(); show(b.dataset.view); }));
+$$("nav.tabs button").forEach(b => b.addEventListener("click", () => { if(!DATA) return; if(b.dataset.view === "yol") renderYol(); if(b.dataset.view === "plan") renderPlan(); if(b.dataset.view === "proje") renderProje(); if(b.dataset.view === "tekrar") renderTekrar(); if(b.dataset.view === "sim" && typeof renderSim === "function") renderSim(); if(b.dataset.view === "portfoy") renderPortfoy(); show(b.dataset.view); }));
 
 /* ---------- Yol haritası ---------- */
 function renderYol(){
@@ -1545,5 +1591,6 @@ async function boot(){
 }
 boot();
 </script>
+<script src="sim.js"></script>
 </body>
 </html>
