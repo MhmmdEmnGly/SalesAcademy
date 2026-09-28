@@ -48,8 +48,9 @@ nav.tabs button{background:none;border:0;padding:8px 8px;border-radius:8px;color
 nav.tabs button:hover{color:var(--ink);background:var(--surface)}
 nav.tabs button[aria-selected="true"]{color:var(--ink);background:var(--surface);box-shadow:inset 0 -2px 0 var(--accent)}
 .sync{font-size:11.5px;line-height:1.25;color:var(--muted);max-width:118px}
-/* Sekmeler tek satıra sığmayınca başlığın altına iner */
-@media (max-width:1180px){.bar{flex-wrap:wrap;height:auto;padding-top:10px;padding-bottom:6px;gap:8px 18px}nav.tabs{order:3;flex-basis:100%}.acct{margin-left:auto}}
+/* Geniş ekranda başlık, 9 sekme tek satıra sığsın diye içerikten biraz daha geniş; sığmayınca sekmeler başlığın altına iner */
+header.top .wrap{max-width:1320px}
+@media (max-width:1360px){.bar{flex-wrap:wrap;height:auto;padding-top:10px;padding-bottom:6px;gap:8px 18px}nav.tabs{order:3;flex-basis:100%}.acct{margin-left:auto}}
 @media (max-width:760px){.brand small{display:none}}
 @media (max-width:480px){.wrap{padding:0 16px}.acct{gap:8px}.sync{max-width:78px;font-size:11px}}
 
@@ -345,6 +346,55 @@ dialog.quizdlg{width:min(680px,calc(100vw - 32px))}
 .pitem a{font-size:14px;word-break:break-all}
 @media (max-width:640px){.pitem{grid-template-columns:1fr;gap:4px}.qz{padding:18px}}
 
+/* kişisel plan */
+.qzopt[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.qzopt[aria-pressed="true"] .L{color:var(--accent)}
+.qzopt small{display:block;color:var(--muted);font-size:13px;margin-top:1px}
+.qzopt.idk{border-style:dashed;color:var(--muted)}
+.onbhint{margin:-6px 0 12px;color:var(--muted);font-size:14px}
+.onbnav{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-top:16px}
+.onbnav div{display:flex;gap:8px;flex-wrap:wrap}
+.onbsum{margin:0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.onbsum li{display:grid;grid-template-columns:130px 1fr;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.onbsum li span{color:var(--muted)}
+.plhead{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;flex-wrap:wrap}
+.plhead .act{display:flex;gap:8px;flex-wrap:wrap}
+.verdict{margin-top:14px;border-radius:10px;padding:12px 16px;font-size:14.5px;background:var(--accent-soft)}
+.verdict.warn{background:var(--amber-soft)}
+.verdict b{display:block;margin-bottom:2px}
+.tasks{list-style:none;margin:14px 0 0;padding:0;border-top:1px solid var(--line)}
+.tasks li{display:grid;grid-template-columns:64px 1fr auto;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.tasks .m{font:700 17px/1 var(--display);color:var(--accent)}
+.tasks .m small{display:block;font:500 11.5px var(--text);color:var(--muted);margin-top:3px}
+.tasks h4{margin:0;font:600 15px/1.35 var(--text)}
+.tasks .c{font-size:13px;color:var(--muted)}
+.tasks li.ok h4{color:var(--muted);text-decoration:line-through}
+@media (max-width:560px){.tasks li{grid-template-columns:52px 1fr}.tasks li > :last-child{grid-column:2;justify-self:start}}
+.fast{font-size:11.5px;padding:0 7px;border-radius:99px;background:var(--accent-soft);color:var(--accent);font-weight:500;margin-left:4px;white-space:nowrap}
+.heat{margin-top:14px;border-top:1px solid var(--line)}
+.hrow{display:grid;grid-template-columns:44px 1fr 210px;gap:12px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line)}
+.hrow .hph{background:none;border:0;padding:0;font:800 15px var(--display);color:var(--muted);cursor:pointer;text-align:left}
+.hrow .hph:hover{color:var(--accent)}
+.hcells{display:flex;flex-wrap:wrap;gap:4px}
+.hc{width:18px;height:18px;border-radius:4px;border:1px solid var(--line);background:var(--paper);padding:0;cursor:pointer}
+.hc:hover{outline:2px solid var(--ink);outline-offset:1px}
+.hc.hg{background:var(--accent);border-color:var(--accent)}
+.hc.hd{background:color-mix(in srgb,var(--accent) 55%,var(--surface));border-color:transparent}
+.hc.hk{background:var(--accent-soft);border-color:var(--accent)}
+.hc.hi{background:var(--amber-soft);border-color:var(--amber)}
+.hc.hm{background:var(--amber);border-color:var(--amber)}
+.hc.hb{background:var(--crit);border-color:var(--crit)}
+.hc.hw{background:color-mix(in srgb,var(--crit) 16%,var(--surface));border-color:var(--crit)}
+.hsum{font-size:12.5px;color:var(--muted);text-align:right}
+.hleg{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--muted);margin-top:10px}
+.hleg span{display:inline-flex;gap:6px;align-items:center}
+.hleg .hc{display:inline-block;width:12px;height:12px;cursor:default}
+.hleg .hc:hover{outline:0}
+@media (max-width:640px){.hrow{grid-template-columns:36px 1fr}.hsum{grid-column:2;text-align:left}}
+.chip.sm{font-size:13px;padding:3px 10px}
+details.out{margin-top:14px}
+details.out summary{cursor:pointer;color:var(--muted);font-size:14px}
+
 .empty{padding:30px 0;color:var(--muted)}
 .foot{margin-top:60px;color:var(--muted);font-size:13px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
@@ -356,6 +406,7 @@ dialog.quizdlg{width:min(680px,calc(100vw - 32px))}
     <div class="brand">Satış Akademisi<small>Temelden stratejik iş geliştirmeye</small></div>
     <nav class="tabs" role="tablist" aria-label="Bölümler">
       <button role="tab" data-view="yol" aria-selected="true">Yol haritası</button>
+      <button role="tab" data-view="plan" aria-selected="false">Planım</button>
       <button role="tab" data-view="mufredat" aria-selected="false">Müfredat</button>
       <button role="tab" data-view="metod" aria-selected="false">Metodolojiler</button>
       <button role="tab" data-view="metrik" aria-selected="false">Metrikler</button>
@@ -373,6 +424,7 @@ dialog.quizdlg{width:min(680px,calc(100vw - 32px))}
 
 <main class="wrap">
   <section class="view" id="v-yol"></section>
+  <section class="view" id="v-plan" hidden></section>
   <section class="view" id="v-mufredat" hidden></section>
   <section class="view" id="v-metod" hidden></section>
   <section class="view" id="v-metrik" hidden></section>
@@ -412,6 +464,10 @@ dialog.quizdlg{width:min(680px,calc(100vw - 32px))}
   </div>
 </dialog>
 
+<dialog class="auth quizdlg" id="onbDlg" aria-labelledby="onbTitle">
+  <div class="qz" id="onbBody"></div>
+</dialog>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.min.js"></script>
 
 <script>
@@ -427,7 +483,9 @@ let DATA, TOP, PH;
    LS_OWNER: yerel kopyanın hangi hesapla senkron olduğu; LS_DIRTY: hesaba henüz yazılamamış değişiklik var. */
 // quiz: {konuId: {best, last, n, at, wrong:[soru indeksleri]}}, review: {konuId: {stage, due}},
 // outputs: {konuId: {url, text, at}}, calc: {hesaplayıcı değerleri}, startDate: "YYYY-MM-DD"
-const emptyState = () => ({ topics:{}, steps:{}, notes:{}, quiz:{}, review:{}, outputs:{}, calc:{}, startDate:null });
+// doneAt: {konuId: tamamlanma tarihi}, profile: başlangıç sorularının cevapları, placement: seviye testi sonucu
+// planWeek: bu haftanın plan kesiti {start, key, ids, h}, planPrev: geçen haftanın sonucu
+const emptyState = () => ({ topics:{}, steps:{}, notes:{}, quiz:{}, review:{}, outputs:{}, calc:{}, startDate:null, doneAt:{}, profile:null, placement:null });
 let state = emptyState();
 const LS_KEY = "satis-akademisi-v1", LS_OWNER = "satis-akademisi-owner", LS_DIRTY = "satis-akademisi-dirty";
 const lsGet = k => { try{ return localStorage.getItem(k); }catch(e){ return null; } };
@@ -497,6 +555,7 @@ async function pullRemote(){
   state = next; remoteReady = true;
   saveLocal(); lsSet(LS_OWNER, user.id); renderAll();
   if(mustPush) await pushRemote(); else { lsSet(LS_DIRTY, null); setSync("Hesabınla senkron"); }
+  maybeOnboard();
 }
 
 /* ---------- hesap penceresi ---------- */
@@ -562,6 +621,7 @@ function onSignedOut(){
   // Hesaba yazılamamış değişiklik varsa silinmez; bir sonraki girişte hesaba gönderilir.
   if(lsGet(LS_OWNER) && lsGet(LS_DIRTY) !== "1"){ state = emptyState(); lsSet(LS_KEY, null); lsSet(LS_OWNER, null); lsSet(LS_DIRTY, null); renderAll(); }
   updateAcctBtn(); setSync("Bu tarayıcıda kayıtlı");
+  maybeOnboard();
 }
 function initAuth(){
   $("#acctBtn").addEventListener("click", () => sb ? openAuth() : alert("Hesap servisine ulaşılamadı. İnternet bağlantını kontrol edip sayfayı yenile."));
@@ -571,7 +631,7 @@ function initAuth(){
     const a = b.dataset.act;
     if(a === "close") $("#auth").close(); else if(a === "mode-up") setAuthMode("up"); else if(a === "mode-in") setAuthMode("in"); else authAction(a);
   });
-  if(!sb){ setSync("Hesap servisine ulaşılamadı"); return; }
+  if(!sb){ setSync("Hesap servisine ulaşılamadı"); maybeOnboard(); return; }
   sb.auth.onAuthStateChange((event, session) => {
     // Supabase kilitlenmesin diye asıl işler bir sonraki turda yapılır
     setTimeout(() => {
@@ -589,8 +649,8 @@ const st = id => state.topics[id] || "todo";
 function setStatus(id, s){
   if(s === "todo") delete state.topics[id]; else state.topics[id] = s;
   // Tamamlanan konu tekrar takvimine girer; tamamlanmamışa dönerse çıkar
-  if(s === "done"){ if(!state.review[id]) state.review[id] = { stage:0, due:addDays(todayStr(), REVIEW_DAYS[0]) }; }
-  else delete state.review[id];
+  if(s === "done"){ if(!state.review[id]) state.review[id] = { stage:0, due:addDays(todayStr(), REVIEW_DAYS[0]) }; state.doneAt[id] = state.doneAt[id] || todayStr(); }
+  else { delete state.review[id]; delete state.doneAt[id]; }
   persist();
 }
 
@@ -639,12 +699,14 @@ function show(view){
   $$(".view").forEach(v => v.hidden = v.id !== "v-" + view);
   window.scrollTo({ top:0 });
 }
-$$("nav.tabs button").forEach(b => b.addEventListener("click", () => { if(!DATA) return; if(b.dataset.view === "yol") renderYol(); if(b.dataset.view === "proje") renderProje(); if(b.dataset.view === "tekrar") renderTekrar(); if(b.dataset.view === "portfoy") renderPortfoy(); show(b.dataset.view); }));
+$$("nav.tabs button").forEach(b => b.addEventListener("click", () => { if(!DATA) return; if(b.dataset.view === "yol") renderYol(); if(b.dataset.view === "plan") renderPlan(); if(b.dataset.view === "proje") renderProje(); if(b.dataset.view === "tekrar") renderTekrar(); if(b.dataset.view === "portfoy") renderPortfoy(); show(b.dataset.view); }));
 
 /* ---------- Yol haritası ---------- */
 function renderYol(){
   const o = overall();
-  const next = DATA.topics.find(t => st(t.id) === "doing") || DATA.topics.find(t => st(t.id) !== "done");
+  const plan = state.profile ? buildPlan() : null;
+  const next = plan ? (plan.list[0] || {}).t : DATA.topics.find(t => st(t.id) === "doing") || DATA.topics.find(t => st(t.id) !== "done");
+  const planCard = state.profile ? "" : `<div class="pace"><h3>Sana özel bir plan çıkaralım</h3><p>6 kısa soruyla hedefini, haftalık zamanını ve geliştirmek istediğin alanları öğrenip konuları senin için sıralayalım; istersen kısa bir seviye testiyle bildiklerini hızlı geçişe alalım.</p><div class="row"><button class="btn primary sm" type="button" data-onb-open>Planımı oluştur</button></div></div>`;
   const stops = DATA.phases.map((p, i) => {
     const s = phaseStats(p.kod);
     return `<li class="${s.p===100?'done-seg':''}"><button class="stop ${s.p===100?'full':''}" data-phase="${p.kod}" aria-label="${esc(p.ad)}: yüzde ${s.p} tamamlandı">
@@ -687,11 +749,12 @@ function renderYol(){
       <div class="big"><span class="pct">%${o.p}</span><span class="lbl">${o.d} / ${o.n} konu tamam<br>${o.hd} / ${o.h} saat</span></div>
     </div>
     <div class="route"><ol>${stops}</ol></div>
+    ${planCard}
     ${paceCard}
     ${next ? `<div class="next">
-      <div><div class="k">${st(next.id)==="doing" ? "Devam ettiğin konu" : "Sıradaki konu"}</div><h3>${esc(next.konu)}</h3><div class="k">${next.id}, ${esc(next.fazAd)}, ${next.saat} saat</div></div>
-      <span></span>
-      <button class="btn primary" data-topic="${next.id}">Konuyu aç</button></div>` : `<div class="next"><div><h3>Tüm konular tamamlandı.</h3><div class="k">Capstone projelerini playbook'a dönüştürmeyi unutma.</div></div></div>`}
+      <div><div class="k">${st(next.id)==="doing" ? "Devam ettiğin konu" : plan ? "Planına göre sıradaki konu" : "Sıradaki konu"}</div><h3>${esc(next.konu)}</h3><div class="k">${next.id}, ${esc(next.fazAd)}, ${next.saat} saat</div></div>
+      ${plan ? `<button class="btn" type="button" data-goto="plan">Planımı gör</button>` : "<span></span>"}
+      <button class="btn primary" data-topic="${next.id}">Konuyu aç</button></div>` : `<div class="next"><div><h3>${plan ? "Planındaki tüm konuları tamamladın." : "Tüm konular tamamlandı."}</h3><div class="k">Capstone projelerini playbook'a dönüştürmeyi unutma.</div></div></div>`}
     <div class="section"><h2>Fazlar</h2><p class="lede">Bir faza tıklayınca müfredat o faza göre filtrelenir.</p><div class="phases">${rows}</div></div>
     <div class="section"><h2>Haftalık plan</h2><p class="lede">Konular saat yüküne göre haftalara dağıtıldı. Capstone projelerine ilgili fazda başlayıp F10'da tamamlayabilirsin.</p><div class="weeks">${weeks}</div></div>`;
   $$("#v-yol [data-phase]").forEach(b => b.addEventListener("click", () => { filt.phase = b.dataset.phase; renderMufredat(); show("mufredat"); }));
@@ -794,7 +857,7 @@ document.addEventListener("input", e => {
 });
 document.addEventListener("click", e => {
   const g = e.target.closest("[data-goto]");
-  if(g && DATA){ const v = g.dataset.goto; if(v === "tekrar") renderTekrar(); if(v === "portfoy") renderPortfoy(); show(v); return; }
+  if(g && DATA){ const v = g.dataset.goto; if(v === "plan") renderPlan(); if(v === "tekrar") renderTekrar(); if(v === "portfoy") renderPortfoy(); show(v); return; }
   const q = e.target.closest("[data-quiz]");
   if(q && DATA){ startQuiz(q.dataset.quiz, q.dataset.qmode || "full"); }
 });
@@ -969,9 +1032,10 @@ async function startQuiz(id, mode){
 function renderQuestion(){
   const it = qs.items[qs.pos];
   $("#qzBar").style.width = pct(qs.pos, qs.items.length) + "%";
-  $("#qzBody").innerHTML = `<div style="font-size:13px;color:var(--muted);margin-bottom:6px">Soru ${qs.pos + 1} / ${qs.items.length}</div>
+  const pl = qs.mode === "placement";
+  $("#qzBody").innerHTML = `<div style="font-size:13px;color:var(--muted);margin-bottom:6px">Soru ${qs.pos + 1} / ${qs.items.length}${pl ? `, ${esc(PH[TOP[it.tid].faz].ad)}` : ""}</div>
     <p class="qzq">${esc(it.q.q)}</p>
-    <div class="qzopts">${it.order.map((o, k) => `<button class="qzopt" type="button" data-opt="${o}"><span class="L">${"ABCD"[k]}</span><span>${esc(it.q.o[o])}</span></button>`).join("")}</div>
+    <div class="qzopts">${it.order.map((o, k) => `<button class="qzopt" type="button" data-opt="${o}"><span class="L">${"ABCD"[k]}</span><span>${esc(it.q.o[o])}</span></button>`).join("")}${pl ? `<button class="qzopt idk" type="button" data-opt="-1"><span class="L">?</span><span>Bilmiyorum</span></button>` : ""}</div>
     <div id="qzFb" aria-live="polite"></div>`;
   qs.answered = false;
   $("#qzBody .qzopt").focus();
@@ -981,6 +1045,7 @@ function answerQuestion(o){
   qs.answered = true;
   const it = qs.items[qs.pos], ok = o === it.q.a;
   if(ok) qs.correct++; else qs.wrong.push(it.i);
+  if(qs.mode === "placement") qs.res[it.tid] = ok ? 1 : 0;
   $$("#qzBody .qzopt").forEach(b => { b.disabled = true; const v = +b.dataset.opt; if(v === it.q.a) b.classList.add("right"); else if(v === o) b.classList.add("wrong"); });
   const last = qs.pos === qs.items.length - 1;
   $("#qzFb").innerHTML = `<div class="qzfb ${ok ? "ok" : "no"}"><b>${ok ? "Doğru!" : "Yanlış. Doğru cevap: " + esc(it.q.o[it.q.a])}</b>${esc(it.q.e)}</div>
@@ -989,6 +1054,7 @@ function answerQuestion(o){
   $("#qzFb [data-qz=next]").focus();
 }
 function finishQuiz(){
+  if(qs.mode === "placement") return finishPlacement();
   const { id, mode, correct, items, wrong } = qs, n = items.length, p = pct(correct, n);
   let note = "";
   if(mode === "full"){
@@ -1029,6 +1095,7 @@ function initQuiz(){
     else if(a === "next"){ if(qs.pos < qs.items.length - 1){ qs.pos++; renderQuestion(); } else finishQuiz(); }
     else if(a === "wrong") startQuiz(qs.id, "wrong");
     else if(a === "again") startQuiz(qs.id, "full");
+    else if(a === "plan"){ dlg.close(); renderYol(); renderPlan(); show("plan"); }
   });
   // Klavye: 1-4 veya A-D ile cevapla
   dlg.addEventListener("keydown", e => {
@@ -1038,7 +1105,7 @@ function initQuiz(){
   });
   dlg.addEventListener("close", () => {
     const id = qs && qs.id; qs = null;
-    renderYol(); renderTekrar(); if(id && document.getElementById("t-" + id.replace(".", "-"))) refreshTopic(id);
+    renderYol(); renderPlan(); renderTekrar(); if(id && document.getElementById("t-" + id.replace(".", "-"))) refreshTopic(id);
   });
 }
 
@@ -1115,9 +1182,351 @@ function renderPortfoy(){
   $$("#v-portfoy [data-topic]").forEach(b => b.addEventListener("click", () => openTopic(b.dataset.topic)));
 }
 
+/* ---------- Kişisel plan: profil, öncelik motoru, haftalık plan ---------- */
+const GOALS = {
+  ilk:{ ad:"Satışta ilk işimi almak", d:"SDR/BDR veya junior satış rolüyle sektöre girmek istiyorum.", ana:["F1","F2","F3","F4"], yan:["F5"] },
+  performans:{ ad:"Satış performansımı artırmak", d:"Zaten satıştayım; daha çok toplantı ve daha yüksek kapanış istiyorum.", ana:["F3","F4"], yan:["F2","F8"] },
+  enterprise:{ ad:"Kurumsal ve büyük satışlar yapmak", d:"Çok paydaşlı, uzun döngülü deal'leri ve ihaleleri yönetmek istiyorum.", ana:["F8","F3","F4"], yan:["F2"] },
+  revops:{ ad:"RevOps / Sales Ops'a geçmek", d:"CRM, pipeline, forecast ve gelir operasyonlarında uzmanlaşmak istiyorum.", ana:["F5","F6"], yan:["F7","F9"] },
+  kurucu:{ ad:"Kendi işime satış sistemi kurmak", d:"Girişimci veya iş sahibiyim; müşteri bulma ve go-to-market kurmak istiyorum.", ana:["F2","F7"], yan:["F4","F5","F6"] },
+  lider:{ ad:"Satış ekibi yönetmek", d:"Ekip kurmak, koçluk yapmak ve yönetim ritmi oturtmak istiyorum.", ana:["F9","F5"], yan:["F3","F6"] },
+  genel:{ ad:"Tüm alanı baştan sona öğrenmek", d:"Belirli bir hedefim yok, programın tamamını izlemek istiyorum.", ana:[], yan:[] }
+};
+const STRUG = {
+  bulma:{ ad:"Müşteri bulmak ve toplantı almak", faz:["F2"] },
+  gorusme:{ ad:"Görüşme yönetimi ve ihtiyaç keşfi", faz:["F1","F3"] },
+  kapanis:{ ad:"Teklif, müzakere ve kapanış", faz:["F4"] },
+  pipeline:{ ad:"Pipeline, forecast ve CRM düzeni", faz:["F5"] },
+  veri:{ ad:"Metrikler, veri ve gelir operasyonları", faz:["F6"] },
+  strateji:{ ad:"Pazar, konumlandırma ve fiyat stratejisi", faz:["F7"] },
+  buyuk:{ ad:"Büyük hesaplar ve ihaleler", faz:["F8"] },
+  ekip:{ ad:"Ekip yönetimi ve koçluk", faz:["F9"] }
+};
+const LEVELS = [["Hiç satış deneyimim yok","Sıfırdan başlıyorum."],["0–2 yıl","Temel görüşmeleri yapıyorum, sistemim henüz oturmadı."],["2–5 yıl","Deneyimliyim, eksiklerimi kapatmak istiyorum."],["5 yıldan fazla","Kıdemliyim, ileri konulara odaklanmak istiyorum."]];
+const HOURS = [[3,"3 saat","Hafta içi birkaç akşam yarım saat"],[5,"5 saat","Günde yaklaşık 1 saat"],[8,"8 saat","Hafta içi 1 saat, hafta sonu biraz daha"],[12,"12 saat","Yoğun tempo"],[16,"15 saat ve üzeri","Tam zamanlıya yakın"]];
+const TARGETS = [[13,"3 ay içinde"],[26,"6 ay içinde"],[42,"10 ay içinde (programın önerdiği süre)"],[0,"Belirli bir tarihim yok"]];
+const CAPS = { "F10.01":["F2","F3"], "F10.02":["F5","F6"], "F10.03":["F7"], "F10.04":["F3","F4","F8"] };
+const PRIO_PTS = { Kritik:3, Önemli:2, Destek:1 }, PRANK = { Kritik:0, Önemli:1, Destek:2 };
+const PLACE_N = 5;
+let IDX = {};
+
+const plKnown = id => state.placement && state.placement.topics ? state.placement.topics[id] : undefined;
+const topicHours = t => plKnown(t.id) === 1 ? Math.max(1, Math.round(t.saat * 0.4)) : t.saat;
+function focusPhases(p){
+  const g = GOALS[p.goal] || GOALS.genel;
+  return new Set([...g.ana, ...g.yan, ...(p.struggles || []).flatMap(k => STRUG[k] ? STRUG[k].faz : [])]);
+}
+// Öncelik puanı: konu önceliği + hedef fazı + zorlanılan alan + seviye + seviye testi + yarım kalan konu
+function topicScore(t, p){
+  const g = GOALS[p.goal] || GOALS.genel;
+  let s = PRIO_PTS[t.oncelik] || 1;
+  if(g.ana.includes(t.faz)) s += 3; else if(g.yan.includes(t.faz)) s += 1.5;
+  if((p.struggles || []).some(k => STRUG[k] && STRUG[k].faz.includes(t.faz))) s += 2;
+  if(t.faz === "F1") s += p.level === 0 ? 3 : p.level >= 2 ? -1.5 : 0;
+  const pl = plKnown(t.id); if(pl === 1) s -= 2; else if(pl === 0) s += 1.5;
+  if(st(t.id) === "doing") s += 2;
+  return s;
+}
+function inScope(t, p, fp){
+  if(p.scope === "tam" || p.goal === "genel" || st(t.id) === "doing") return true;
+  if(t.faz === "F10") return (CAPS[t.id] || []).some(f => fp.has(f));
+  if(t.faz === "F1" && p.level <= 1) return true;
+  return fp.has(t.faz);
+}
+function buildPlan(p){
+  p = p || state.profile; if(!p) return null;
+  const fp = focusPhases(p);
+  const rest = DATA.topics.filter(t => st(t.id) !== "done").map(t => ({ t, id:t.id, s:topicScore(t, p), h:topicHours(t), fast:plKnown(t.id) === 1, weak:plKnown(t.id) === 0, inn:inScope(t, p, fp) }));
+  // Sıra: yarım kalanlar, sonra puan kademesi, kademe içinde müfredat sırası (ön koşullar korunur), capstone'lar en sonda
+  const tier = x => st(x.id) === "doing" ? -1 : x.t.faz === "F10" ? 9 : x.s >= 6 ? 0 : x.s >= 4 ? 1 : 2;
+  const list = rest.filter(x => x.inn).sort((a, b) => tier(a) - tier(b) || IDX[a.id] - IDX[b.id]);
+  return { list, out:rest.filter(x => !x.inn), hours:list.reduce((a, x) => a + x.h, 0), tier };
+}
+// Konuları haftalık saat bütçesine yerleştir; bütçeden büyük konu sonraki haftaya taşar
+function schedule(list, H, start){
+  const weeks = []; let cur;
+  const nw = () => { cur = { start:addDays(start, weeks.length * 7), items:[], h:0 }; weeks.push(cur); };
+  nw();
+  for(const x of list){
+    let rem = x.h, part = 0;
+    while(rem > 0.001){
+      let cap = H - cur.h; if(cap <= 0.001){ nw(); cap = H; }
+      const take = Math.min(cap, rem);
+      cur.items.push({ x, h:take, cont:part > 0, more:rem - take > 0.001 }); cur.h += take; rem -= take; part++;
+    }
+  }
+  if(!cur.items.length) weeks.pop();
+  return weeks;
+}
+const mondayOf = s => { const d = parseDate(s); d.setDate(d.getDate() - (d.getDay() + 6) % 7); return dateStr(d); };
+const planKey = () => `${state.profile.v || 0}|${state.placement ? state.placement.v || 0 : 0}`;
+// Bu haftanın planı hafta başında (veya profil / seviye testi değişince) sabitlenir; hafta dönünce geçen haftanın sonucu saklanıp yeniden planlanır
+function ensurePlanWeek(plan){
+  const mon = mondayOf(todayStr()), pw = state.planWeek;
+  if(pw && pw.start === mon && pw.key === planKey()) return false;
+  if(pw && pw.start < mon){
+    const ids = pw.ids || [];
+    state.planPrev = { start:pw.start, n:ids.length, done:ids.filter(id => st(id) === "done").length };
+  }
+  const w = schedule(plan.list, state.profile.hours, mon)[0];
+  state.planWeek = { start:mon, key:planKey(), ids:[...new Set((w ? w.items : []).map(i => i.x.id))], h:w ? Math.round(w.h) : 0 };
+  return true;
+}
+// Son 4 haftada tamamlanan konuların saatinden haftalık gerçek tempo
+function velocity(){
+  const t = todayStr(), since = addDays(t, -28);
+  const ent = Object.entries(state.doneAt || {}).filter(([id, d]) => TOP[id] && d >= since && d <= t);
+  if(!ent.length) return null;
+  const from = [state.startDate, state.profile && state.profile.at, since].filter(Boolean).sort().pop();
+  const weeks = Math.min(4, Math.max(1, daysBetween(from, t) / 7));
+  return ent.reduce((a, [id]) => a + TOP[id].saat, 0) / weeks;
+}
+const hrs = n => fmt(Math.round(n * 10) / 10, n % 1 ? 1 : 0);
+
+/* Bugün ne çalışayım? Önce vadesi gelen tekrarlar, sonra zayıf quizler, sonra plandaki konu */
+function todaySession(plan, mins){
+  const tasks = []; let left = mins;
+  const add = t => { tasks.push(t); left -= t.m; };
+  for(const r of dueReviews()){ if(left < 10) break; add({ m:10, kind:"review", id:r.id, h:"Tekrar: " + TOP[r.id].konu, c:"5 soruluk aralıklı tekrar, " + stageLbl(r.stage) }); }
+  const weak = Object.keys(state.quiz).filter(id => TOP[id] && quizPct(id) < 60 && (state.quiz[id].wrong || []).length).sort((a, b) => quizPct(a) - quizPct(b));
+  for(const id of weak.slice(0, 2)){ if(left < 10) break; add({ m:10, kind:"wrong", id, h:"Zayıf konu: " + TOP[id].konu, c:`Quizde en iyi %${quizPct(id)}; yanlış yaptığın ${state.quiz[id].wrong.length} soruyu tekrar çöz` }); }
+  const nq = DATA.topics.find(t => st(t.id) === "done" && !state.quiz[t.id]);
+  if(nq && left >= 25) add({ m:15, kind:"quiz", id:nq.id, h:"Quiz: " + nq.konu, c:"Tamamladın ama quizini çözmedin; 15 soruyla kalıcılığını ölç" });
+  const pw = (state.planWeek && state.planWeek.ids) || [];
+  const cand = [...new Set([...DATA.topics.filter(t => st(t.id) === "doing").map(t => t.id), ...pw.filter(id => st(id) !== "done"), ...plan.list.map(x => x.id)])];
+  for(const id of cand){
+    if(left < 20) break;
+    const t = TOP[id], m = Math.min(left, topicHours(t) * 60);
+    add({ m, kind:"study", id, h:t.konu, c:`${t.id}, ${t.fazAd}. ${st(id) === "doing" ? "Kaldığın yerden devam et" : "Konu anlatımını oku, pratik göreve başla"}${plKnown(id) === 1 ? " (seviye testinde bildin, hızlı geç)" : ""}` });
+  }
+  return tasks;
+}
+
+/* Güç/zayıflık haritası */
+const HEAT = { hg:"Tamamlandı, quiz %80+", hd:"Tamamlandı", hk:"Biliyorsun (test/quiz)", hi:"Devam ediyor", hm:"Quiz %60–79", hb:"Quiz %60 altı", hw:"Seviye testinde bilemedin", "":"Başlanmadı" };
+function heatCls(id){
+  const p = quizPct(id), s = st(id), pl = plKnown(id);
+  if(p != null){ if(p < 60) return "hb"; if(p < 80) return "hm"; return s === "done" ? "hg" : "hk"; }
+  if(s === "done") return "hd"; if(s === "doing") return "hi";
+  if(pl === 1) return "hk"; if(pl === 0) return "hw"; return "";
+}
+function heatHTML(){
+  const rows = DATA.phases.map(p => {
+    const ts = DATA.topics.filter(t => t.faz === p.kod), s = phaseStats(p.kod);
+    const qz = ts.filter(t => quizPct(t.id) != null), avg = qz.length ? Math.round(qz.reduce((a, t) => a + quizPct(t.id), 0) / qz.length) : null;
+    const pl = state.placement && state.placement.phases && state.placement.phases[p.kod];
+    const sum = [`${s.done}/${s.n} tamam`, avg != null ? `quiz ort. %${avg}` : "", pl ? `test ${pl.c}/${pl.n}` : ""].filter(Boolean).join(", ");
+    return `<div class="hrow"><button class="hph" data-phase="${p.kod}" title="${esc(p.ad)}">${p.kod}</button>
+      <div class="hcells">${ts.map(t => { const c = heatCls(t.id); return `<button class="hc ${c}" data-topic="${t.id}" title="${t.id} ${esc(t.konu)}: ${HEAT[c]}" aria-label="${t.id} ${esc(t.konu)}: ${HEAT[c]}"></button>`; }).join("")}</div>
+      <div class="hsum">${sum}</div></div>`;
+  }).join("");
+  return `<div class="heat">${rows}</div><div class="hleg">${Object.entries(HEAT).map(([c, l]) => `<span><i class="hc ${c}"></i>${l}</span>`).join("")}</div>`;
+}
+
+function renderPlan(){
+  const v = $("#v-plan"), p = state.profile;
+  if(!p){
+    v.innerHTML = `<h2>Planım</h2><p class="lede">Birkaç kısa soruyla hedefini, haftalık zamanını ve geliştirmek istediğin alanları öğrenip 124 konuyu senin için sıralayalım. İstersen kısa bir seviye testiyle bildiğin konuları hızlı geçişe alırız.</p>
+      <div class="pace"><h3>Sana özel yol haritası</h3><p>6 soru, yaklaşık 1 dakika. Cevaplarını istediğin zaman değiştirebilirsin.</p><div class="row"><button class="btn primary" type="button" data-onb-open>Planımı oluştur</button></div></div>`;
+    return;
+  }
+  const plan = buildPlan(p);
+  if(ensurePlanWeek(plan)) persist();
+  const g = GOALS[p.goal] || GOALS.genel, H = p.hours, t = todayStr(), mon = mondayOf(t);
+  const weeks = schedule(plan.list, H, mon);
+  const finish = weeks.length ? addDays(weeks[weeks.length - 1].start, 6) : t;
+  const vel = velocity();
+  const realFinish = vel && plan.hours ? addDays(t, Math.ceil(plan.hours / vel * 7)) : null;
+  let verdict = "";
+  if(!plan.list.length) verdict = `<div class="verdict"><b>Planındaki tüm konuları bitirdin.</b>${plan.out.length ? `Odak dışında kalan ${plan.out.length} konu var; kapsamı "tüm program"a çevirerek devam edebilirsin.` : "Tekrarları ve portföyünü tamamlamaya odaklan."}</div>`;
+  else if(p.targetDate){
+    const wl = Math.max(0.5, daysBetween(t, p.targetDate) / 7), need = plan.hours / wl;
+    const pace = vel != null ? vel : H;
+    verdict = need <= pace
+      ? `<div class="verdict"><b>Hedef tarihine (${fmtDate(p.targetDate)}) yetişiyorsun.</b>Kalan ${hrs(plan.hours)} saatlik plan için haftada ${hrs(need)} saat yeterli; ${vel != null ? `son 4 haftadaki gerçek temponla (haftada ${hrs(vel)} saat)` : `planladığın haftalık ${H} saatle`} rahatça yetişirsin.</div>`
+      : `<div class="verdict warn"><b>Bu tempoyla hedef tarihine (${fmtDate(p.targetDate)}) yetişemezsin.</b>Kalan ${hrs(plan.hours)} saat için haftada yaklaşık ${hrs(need)} saat gerekiyor, ${vel != null ? `son 4 haftadaki tempon ise haftada ${hrs(vel)} saat` : `sen haftada ${H} saat planlıyorsun`}. Haftalık süreyi artırabilir, ${p.scope === "tam" ? `kapsamı "hedefime giden kısa yol"a çekebilir` : "seviye testiyle bildiğin konuları hızlı geçişe alabilir"} ya da hedef tarihini ileri alabilirsin.</div>`;
+  }
+  const mins = p.daily || Math.max(30, Math.min(120, Math.round(H * 60 / 5 / 15) * 15));
+  const tasks = todaySession(plan, mins);
+  const taskBtn = x => x.kind === "review" ? `<button class="btn sm primary" type="button" data-quiz="${x.id}" data-qmode="review">Tekrar et</button>`
+    : x.kind === "wrong" ? `<button class="btn sm primary" type="button" data-quiz="${x.id}" data-qmode="wrong">Yanlışları çöz</button>`
+    : x.kind === "quiz" ? `<button class="btn sm primary" type="button" data-quiz="${x.id}">Quizi başlat</button>`
+    : `<button class="btn sm primary" type="button" data-topic="${x.id}">Konuyu aç</button>`;
+  const pw = state.planWeek, pwDone = pw.ids.filter(id => st(id) === "done").length;
+  const prev = state.planPrev && state.planPrev.start < pw.start ? state.planPrev : null;
+  const weekCard = (w, i) => `<div class="week"><header><b>${i === 0 ? "Bu hafta" : fmtDate(w.start).replace(/ \d{4}$/, "") + " haftası"}</b><span>${hrs(w.h)} saat</span></header><ul>${
+    w.items.map(it => { const s = st(it.x.id); return `<li class="${s}"><span class="dot ${s}"></span><button data-topic="${it.x.id}">${esc(it.x.t.konu)}${it.cont ? " (devam)" : ""}${it.x.fast ? `<span class="fast">hızlı</span>` : ""}</button></li>`; }).join("")}</ul></div>`;
+  const testDone = state.placement && state.placement.phases ? Object.keys(state.placement.phases).length : 0;
+  v.innerHTML = `<div class="plhead"><div><h2>Planım</h2>
+      <p class="lede">Hedef: <b style="color:var(--ink)">${esc(g.ad)}</b>. Haftada ${H} saat, ${p.scope === "tam" ? "tüm program" : "hedefe giden kısa yol"}${p.targetDate ? `, hedef tarih ${fmtDate(p.targetDate)}` : ""}. Plan her ilerlemende yeniden hesaplanır.</p></div>
+      <div class="act"><button class="btn sm" type="button" data-onb-open>Cevaplarımı değiştir</button><button class="btn sm" type="button" data-place-open>${testDone ? "Seviye testini tekrar çöz" : "Seviye testi çöz"}</button></div></div>
+    <div class="stats">
+      <div class="stat"><div class="v">${plan.list.length}</div><div class="n">Planda kalan konu (${hrs(plan.hours)} saat)</div></div>
+      <div class="stat"><div class="v">${plan.list.length ? fmtDate(finish) : "–"}</div><div class="n">Planladığın tempoyla bitiş (${weeks.length} hafta)</div></div>
+      <div class="stat"><div class="v">${vel != null ? hrs(vel) + " sa" : "–"}</div><div class="n">${vel != null ? "Son 4 haftadaki gerçek haftalık tempon" : "Gerçek tempo, konu tamamladıkça hesaplanır"}</div></div>
+      <div class="stat"><div class="v">${realFinish && plan.list.length ? fmtDate(realFinish) : "–"}</div><div class="n">Gerçek temponla tahmini bitiş</div></div>
+    </div>
+    ${verdict}
+    <div class="section"><h2>Bugün ne çalışayım?</h2>
+      <p class="lede">Ne kadar vaktin var? Önce vadesi gelen tekrarlar ve zayıf konular, sonra planındaki sıradaki konu.</p>
+      <div class="chips" role="group" aria-label="Bugünkü süre">${[30, 45, 60, 90, 120].map(m => `<button class="chip sm" type="button" data-mins="${m}" aria-pressed="${m === mins}">${m} dk</button>`).join("")}</div>
+      ${tasks.length ? `<ol class="tasks">${tasks.map(x => `<li><div class="m">${x.m}<small>dakika</small></div><div><h4>${esc(x.h)}</h4><div class="c">${esc(x.c)}</div></div>${taskBtn(x)}</li>`).join("")}</ol>` : `<p class="lede">Bugün için yapılacak bir şey kalmadı.</p>`}
+    </div>
+    <div class="section"><h2>Bu haftanın planı</h2>
+      <p class="lede">${pw.ids.length ? `${fmtDate(pw.start)} haftası için ${pw.h} saatlik ${pw.ids.length} konu; ${pwDone} tanesi tamam.` : "Bu hafta için planlanan konu yok."} ${prev ? `Geçen hafta planlanan ${prev.n} konunun ${prev.done} tanesini bitirdin${prev.done < prev.n ? "; bitmeyenler bu haftaya aktarıldı" : ""}.` : ""}</p>
+      ${pw.ids.length ? `<ul class="tasks">${pw.ids.map(id => `<li class="${st(id) === "done" ? "ok" : ""}"><div class="m">${topicHours(TOP[id])}<small>saat</small></div><div><h4>${esc(TOP[id].konu)}${plKnown(id) === 1 ? `<span class="fast">hızlı</span>` : ""}</h4><div class="c">${id}, ${esc(TOP[id].fazAd)}, ${LBL[st(id)].toLocaleLowerCase("tr")}</div></div><button class="btn sm" type="button" data-topic="${id}">Aç</button></li>`).join("")}</ul>` : ""}
+    </div>
+    ${weeks.length > 1 ? `<div class="section"><h2>Önümüzdeki haftalar</h2><p class="lede">Haftalık ${H} saatlik bütçeye göre. Konu bütçeden büyükse sonraki haftaya "devam" olarak taşar.</p>
+      <div class="weeks">${weeks.slice(1, 9).map((w, i) => weekCard(w, i + 1)).join("")}</div>${weeks.length > 9 ? `<p class="count">ve ${weeks.length - 9} hafta daha</p>` : ""}</div>` : ""}
+    <div class="section"><h2>Güçlü ve zayıf alanların</h2><p class="lede">Her kare bir konu. Durum, quiz sonuçları ve seviye testinden hesaplanır; kareye tıklayınca konu açılır.</p>${heatHTML()}</div>
+    <div class="section"><h2>Sıralama nasıl yapılıyor?</h2>
+      <p class="lede">Yarım kalan konular en önde. Sonra her konuya puan verilir: konunun önceliği (Kritik, Önemli, Destek), hedefinin ana ve yan fazları, geliştirmek istediğin alanlar, deneyimin (yeni başlayanlar için temel faz öne çıkar) ve seviye testi (bildiğin konu geriye gider ve süresi kısalır, bilemediğin öne gelir). Aynı puan grubundaki konular müfredat sırasını korur; capstone projeleri en sonda.</p>
+      ${plan.out.length ? `<details class="out"><summary>Odak dışında kalan ${plan.out.length} konu</summary><div class="weeks">${DATA.phases.filter(ph => plan.out.some(x => x.t.faz === ph.kod)).map(ph => `<div class="week"><header><b>${ph.kod}</b><span>${esc(ph.ad)}</span></header><ul>${plan.out.filter(x => x.t.faz === ph.kod).map(x => `<li><span class="dot"></span><button data-topic="${x.id}">${esc(x.t.konu)}</button></li>`).join("")}</ul></div>`).join("")}</div></details>` : ""}
+    </div>`;
+  $$("#v-plan [data-topic]").forEach(b => b.addEventListener("click", () => openTopic(b.dataset.topic)));
+  $$("#v-plan [data-phase]").forEach(b => b.addEventListener("click", () => { filt.phase = b.dataset.phase; renderMufredat(); show("mufredat"); }));
+  $$("#v-plan [data-mins]").forEach(b => b.addEventListener("click", () => { state.profile.daily = +b.dataset.mins; persist(); renderPlan(); }));
+}
+
+/* ---------- Başlangıç soruları ---------- */
+const ONB = [
+  { k:"goal", q:"Satış Akademisi'ni ne için kullanmak istiyorsun?", opts:() => Object.entries(GOALS).map(([k, g]) => [k, g.ad, g.d]) },
+  { k:"level", q:"Satıştaki deneyimin ne kadar?", opts:() => LEVELS.map((l, i) => [i, l[0], l[1]]) },
+  { k:"struggles", multi:true, q:"Hangi alanlarda kendini geliştirmek istiyorsun?", hint:"Birden fazla seçebilirsin; seçtiklerin planda öne çıkar. Emin değilsen boş geçebilirsin.", opts:() => Object.entries(STRUG).map(([k, s]) => [k, s.ad, ""]) },
+  { k:"hours", q:"Haftada kaç saat ayırabilirsin?", opts:() => HOURS },
+  { k:"target", q:"Hedefine ne zamana ulaşmak istiyorsun?", opts:() => TARGETS.map(([w, l]) => [w, l, w ? "Hedef tarih: " + fmtDate(addDays(todayStr(), w * 7)) : "Planı kendi temponla ilerletirsin."]) },
+  { k:"scope", q:"Nasıl bir yol izlemek istersin?", opts:() => [["odak","Hedefime giden kısa yol","Hedefinle ve seçtiğin alanlarla ilgili fazlar; diğer konular odak dışında bekler."],["tam","Programın tamamı, önceliklerime göre sıralı","124 konunun hepsi planda, ama senin hedefine göre sıralanır."]] }
+];
+let onb = null, onbAsked = false;
+const suggestTest = lv => lv === 0 ? [] : lv === 1 ? ["F1","F2","F3"] : lv === 2 ? ["F1","F2","F3","F4","F5"] : ["F1","F2","F3","F4","F5","F6","F7","F8","F9"];
+function openOnb(){
+  const p = state.profile || {};
+  onb = { step:0, saved:false, a:{ goal:p.goal ?? null, level:p.level ?? null, struggles:(p.struggles || []).slice(), hours:p.hours ?? null, target:p.target ?? null, scope:p.scope ?? null }, test:null };
+  const d = $("#onbDlg"); if(!d.open) d.showModal();
+  renderOnb();
+}
+function maybeOnboard(){
+  if(onbAsked || !DATA) return; onbAsked = true;
+  if(!state.profile && !state.onbSkip && !$("#auth").open) openOnb();
+}
+function candidateProfile(){
+  const a = onb.a;
+  return { goal:a.goal, level:a.level, struggles:a.struggles, hours:a.hours, target:a.target, targetDate:a.target ? addDays(todayStr(), a.target * 7) : null, scope:a.scope };
+}
+function renderOnb(){
+  const b = $("#onbBody"), n = ONB.length + 1, step = onb.step;
+  const head = (k, title) => `<header class="qzhead"><div><div class="k">${k}</div><h2 id="onbTitle">${title}</h2></div><button class="btn sm" type="button" data-onb="close">Kapat</button></header><div class="qzbar"><i style="width:${pct(step + 1, n)}%"></i></div>`;
+  if(step < ONB.length){
+    const S = ONB[step], opts = S.opts(), cur = onb.a[S.k];
+    const sel = v => S.multi ? cur.includes(v) : cur === v;
+    b.innerHTML = head(`Adım ${step + 1} / ${n}`, esc(S.q)) + (S.hint ? `<p class="onbhint">${esc(S.hint)}</p>` : "") +
+      `<div class="qzopts">${opts.map(([v, l, d], i) => `<button class="qzopt" type="button" data-oi="${i}" aria-pressed="${sel(v)}"><span class="L">${S.multi ? (sel(v) ? "✓" : "") : "ABCDEFG"[i]}</span><span>${esc(l)}${d ? `<small>${esc(d)}</small>` : ""}</span></button>`).join("")}</div>
+      <div class="onbnav"><div>${step ? `<button class="btn" type="button" data-onb="back">Geri</button>` : state.profile ? "" : `<button class="btn" type="button" data-onb="skip">Şimdilik geç</button>`}</div>
+        <div>${S.multi || cur != null ? `<button class="btn primary" type="button" data-onb="next">Devam</button>` : ""}</div></div>`;
+    const f = $(`#onbBody .qzopt[aria-pressed="true"]`) || $("#onbBody .qzopt"); if(f) f.focus();
+    return;
+  }
+  const a = onb.a, cp = candidateProfile(), plan = buildPlan(cp), weeks = schedule(plan.list, cp.hours, mondayOf(todayStr()));
+  if(!onb.test) onb.test = suggestTest(a.level);
+  const qn = onb.test.length * PLACE_N;
+  b.innerHTML = head(`Adım ${n} / ${n}`, "Planın hazır") + `
+    <ul class="onbsum">
+      <li><span>Hedef</span><b>${esc(GOALS[a.goal].ad)}</b></li>
+      <li><span>Deneyim</span>${esc(LEVELS[a.level][0])}</li>
+      <li><span>Geliştirilecek</span>${a.struggles.length ? a.struggles.map(k => esc(STRUG[k].ad)).join(", ") : "Belirtilmedi"}</li>
+      <li><span>Plan</span>${plan.list.length} konu, ${hrs(plan.hours)} saat. Haftada ${cp.hours} saatle yaklaşık ${weeks.length} hafta${cp.targetDate ? `; hedef tarih ${fmtDate(cp.targetDate)}` : ""}</li>
+    </ul>
+    <h3 style="margin-top:18px;font-size:16px">Seviye testi (isteğe bağlı)</h3>
+    <p class="onbhint" style="margin-top:4px">Seçtiğin her fazdan ${PLACE_N} soru. Bildiğin konular hızlı geçişe alınır (süresi kısalır), bilemediklerin öne çekilir. ${a.level === 0 ? "Yeni başladığın için gerekmiyor." : "Deneyimine göre önerilen fazlar seçili."}</p>
+    <div class="chips" role="group" aria-label="Test edilecek fazlar">${DATA.phases.filter(p => p.kod !== "F10").map(p => `<button class="chip sm" type="button" data-tp="${p.kod}" aria-pressed="${onb.test.includes(p.kod)}" title="${esc(p.ad)}">${p.kod}</button>`).join("")}</div>
+    <div class="onbnav"><div><button class="btn" type="button" data-onb="back">Geri</button></div>
+      <div><button class="btn ${qn ? "" : "primary"}" type="button" data-onb="save">${qn ? "Testsiz başla" : "Planımı oluştur"}</button>${qn ? `<button class="btn primary" type="button" data-onb="test">Seviye testini başlat (${qn} soru)</button>` : ""}</div></div>`;
+}
+function saveOnb(){
+  state.profile = Object.assign(candidateProfile(), { daily:state.profile && state.profile.daily, at:todayStr(), v:Date.now() });
+  if(!state.profile.daily) delete state.profile.daily;
+  if(!state.startDate) state.startDate = todayStr();
+  delete state.onbSkip; onb.saved = true; persist();
+}
+function initOnb(){
+  const d = $("#onbDlg");
+  d.addEventListener("click", e => {
+    const o = e.target.closest("[data-oi]");
+    if(o){
+      const S = ONB[onb.step], v = S.opts()[+o.dataset.oi][0];
+      if(S.multi){ const a = onb.a[S.k], i = a.indexOf(v); i >= 0 ? a.splice(i, 1) : a.push(v); renderOnb(); }
+      else { onb.a[S.k] = v; onb.step++; renderOnb(); }
+      return;
+    }
+    const tp = e.target.closest("[data-tp]");
+    if(tp){ const k = tp.dataset.tp, i = onb.test.indexOf(k); i >= 0 ? onb.test.splice(i, 1) : onb.test.push(k); renderOnb(); return; }
+    const b = e.target.closest("[data-onb]"); if(!b) return;
+    const act = b.dataset.onb;
+    if(act === "back"){ onb.step--; renderOnb(); }
+    else if(act === "next"){ onb.step++; renderOnb(); }
+    else if(act === "skip"){ state.onbSkip = todayStr(); persist(); d.close(); }
+    else if(act === "close") d.close();
+    else if(act === "save"){ saveOnb(); d.close(); renderAll(); show("plan"); }
+    else if(act === "test"){ saveOnb(); const ph = DATA.phases.map(p => p.kod).filter(k => onb.test.includes(k)); d.close(); renderAll(); startPlacement(ph); }
+  });
+  d.addEventListener("close", () => { if(onb && !onb.saved && !state.profile && !state.onbSkip){ state.onbSkip = todayStr(); persist(); renderPlan(); renderYol(); } });
+  document.addEventListener("click", e => {
+    if(!DATA) return;
+    if(e.target.closest("[data-onb-open]")) openOnb();
+    else if(e.target.closest("[data-place-open]")) openPlaceChooser();
+  });
+}
+// Planım sayfasından seviye testi: faz seçimi için başlangıç sorularının son adımını kullan
+function openPlaceChooser(){
+  openOnb(); onb.step = ONB.length;
+  const done = state.placement && state.placement.phases ? Object.keys(state.placement.phases) : [];
+  onb.test = done.length ? done : suggestTest(state.profile.level || 1);
+  renderOnb();
+}
+
+/* ---------- Seviye testi ---------- */
+async function startPlacement(phases){
+  if(!phases.length) return;
+  const dlg = $("#quizDlg");
+  $("#qzTitle").textContent = "Seviye tespit testi";
+  $("#qzMode").textContent = "Sorular yükleniyor…";
+  $("#qzBody").innerHTML = ""; $("#qzBar").style.width = "0%";
+  if(!dlg.open) dlg.showModal();
+  let Q;
+  try{ Q = await loadQuiz(); }
+  catch(e){ console.error(e); $("#qzMode").textContent = ""; $("#qzBody").innerHTML = `<div class="qzfb no"><b>Sorular yüklenemedi.</b>İnternet bağlantını kontrol edip Planım sayfasından tekrar dene.</div>`; return; }
+  const items = [];
+  for(const f of phases){
+    // Fazdan rastgele konular, Kritik olanlar önce (sıralama kararlı olduğu için eşitler rastgele kalır)
+    const ts = shuffle(DATA.topics.filter(t => t.faz === f && (Q[t.id] || []).length)).sort((a, b) => (PRANK[a.oncelik] ?? 3) - (PRANK[b.oncelik] ?? 3)).slice(0, PLACE_N);
+    for(const t of ts){ const i = Math.floor(Math.random() * Q[t.id].length); items.push({ i, tid:t.id, q:Q[t.id][i], order:shuffle([0, 1, 2, 3]) }); }
+  }
+  qs = { id:null, mode:"placement", phases, items, pos:0, correct:0, wrong:[], answered:false, res:{} };
+  $("#qzMode").textContent = `${phases.length} faz, ${items.length} soru. Bilmediğin soruda tahmin yürütme, "Bilmiyorum" de.`;
+  renderQuestion();
+}
+function finishPlacement(){
+  const prev = state.placement || {};
+  const pl = { at:todayStr(), v:Date.now(), phases:Object.assign({}, prev.phases), topics:Object.assign({}, prev.topics) };
+  for(const f of qs.phases) pl.phases[f] = { c:0, n:0 };
+  let known = 0, weak = 0;
+  for(const it of qs.items){
+    const f = TOP[it.tid].faz, ok = qs.res[it.tid] === 1;
+    pl.phases[f].n++; if(ok){ pl.phases[f].c++; known++; } else weak++;
+    pl.topics[it.tid] = ok ? 1 : 0;
+  }
+  state.placement = pl; persist();
+  $("#qzBar").style.width = "100%";
+  $("#qzMode").textContent = "Seviye testi sonucu";
+  $("#qzBody").innerHTML = `<div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap"><span class="qzscore ${pct(qs.correct, qs.items.length) < 60 ? "low" : ""}">%${pct(qs.correct, qs.items.length)}</span><span style="color:var(--muted)">${qs.correct} / ${qs.items.length} doğru<br>Bildiğin ${known} konu hızlı geçişe alındı, bilemediğin ${weak} konu öne çekildi.</span></div>
+    <ul class="qzlist">${qs.phases.map(f => { const r = pl.phases[f], p = pct(r.c, r.n); return `<li><b>${f} ${esc(PH[f].ad)}</b>${r.c} / ${r.n} doğru. ${p >= 80 ? "Bu fazda güçlüsün." : p >= 50 ? "Temelin var, eksiklerini kapatman gerekiyor." : "Bu faza önem vermelisin."}</li>`; }).join("")}</ul>
+    <div class="qznav"><button class="btn primary" type="button" data-qz="plan">Planımı gör</button></div>`;
+  $("#qzBody [data-qz=plan]").focus();
+}
+
 function renderAll(){
   if(ensureReviews()) persist();
-  renderYol(); renderMufredat(); renderMetod(); renderMetrik(); renderProje(); renderTekrar(); renderPortfoy(); renderKaynak();
+  renderYol(); renderPlan(); renderMufredat(); renderMetod(); renderMetrik(); renderProje(); renderTekrar(); renderPortfoy(); renderKaynak();
 }
 async function boot(){
   try{
@@ -1131,7 +1540,8 @@ async function boot(){
   }
   TOP = Object.fromEntries(DATA.topics.map(t => [t.id, t]));
   PH = Object.fromEntries(DATA.phases.map(p => [p.kod, p]));
-  loadLocal(); initQuiz(); renderAll(); initAuth();
+  IDX = Object.fromEntries(DATA.topics.map((t, i) => [t.id, i]));
+  loadLocal(); initQuiz(); initOnb(); renderAll(); initAuth();
 }
 boot();
 </script>
