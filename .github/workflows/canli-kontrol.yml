@@ -1,0 +1,29 @@
+# Her gün canlı sitenin açıldığını ve ana dosyaların yerinde olduğunu kontrol eder.
+# Kontrol başarısız olursa GitHub, zamanlanmış iş akışını son değiştiren kişiye e-posta ile bildirir.
+name: Canlı site kontrolü
+
+on:
+  schedule:
+    - cron: "0 5 * * *"   # her gün 08:00 (Türkiye saati)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Canlı site
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sayfa ve dosyalar erişilebilir mi?
+        run: |
+          set -e
+          SITE="https://mhmmdemngly.github.io/SalesAcademy"
+          for f in "" index.html data.json quiz.json templates.json sim.js sim/config.json sim/sectors.json sim/nodes_a.json sim/nodes_b.json; do
+            code=$(curl -s -o /tmp/out -w "%{http_code}" --retry 3 --retry-delay 10 "$SITE/$f?t=$(date +%s)")
+            size=$(stat -c %s /tmp/out)
+            echo "$f -> HTTP $code, $size bayt"
+            if [ "$code" != "200" ] || [ "$size" -lt 200 ]; then echo "::error::$SITE/$f erişilemiyor (HTTP $code)"; exit 1; fi
+          done
+          grep -q "Satış Akademisi" <(curl -s "$SITE/index.html?t=$(date +%s)") || { echo "::error::Ana sayfa beklenen içeriği göstermiyor"; exit 1; }
+          echo "Canlı site ayakta."

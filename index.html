@@ -48,9 +48,10 @@ nav.tabs button{background:none;border:0;padding:8px 8px;border-radius:8px;color
 nav.tabs button:hover{color:var(--ink);background:var(--surface)}
 nav.tabs button[aria-selected="true"]{color:var(--ink);background:var(--surface);box-shadow:inset 0 -2px 0 var(--accent)}
 .sync{font-size:11.5px;line-height:1.25;color:var(--muted);max-width:118px}
-/* Geniş ekranda başlık, 9 sekme tek satıra sığsın diye içerikten biraz daha geniş; sığmayınca sekmeler başlığın altına iner */
-header.top .wrap{max-width:1400px}
-@media (max-width:1440px){.bar{flex-wrap:wrap;height:auto;padding-top:10px;padding-bottom:6px;gap:8px 18px}nav.tabs{order:3;flex-basis:100%}.acct{margin-left:auto}}
+/* Başlık iki satır: üstte marka ve düğmeler, altta sekmeler (sekme sayısı arttıkça hiçbiri kesilmesin) */
+.bar{flex-wrap:wrap;height:auto;padding-top:10px;padding-bottom:6px;gap:8px 18px}
+nav.tabs{order:3;flex-basis:100%}
+.acct{margin-left:auto}
 @media (max-width:760px){.brand small{display:none}}
 @media (max-width:480px){.wrap{padding:0 16px}.acct{gap:8px}.sync{max-width:78px;font-size:11px}}
 
@@ -443,9 +444,65 @@ details.out summary{cursor:pointer;color:var(--muted);font-size:14px}
 .mk{font-weight:700} .mk.good{color:var(--accent)} .mk.low{color:var(--crit)}
 @media (max-width:760px){.simmodes,.simform{grid-template-columns:1fr}.simstat{grid-template-columns:1fr;gap:6px}.bub,.coach{max-width:92%}.simbrief li{grid-template-columns:1fr;gap:2px}}
 
+/* günün görüşmesi */
+.btn.danger,.dailybtn{background:var(--crit);border-color:var(--crit);color:#fff;font-weight:600}
+.btn.danger:hover,.dailybtn:hover{filter:brightness(1.08);border-color:var(--crit)}
+.dailybtn::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:#fff;margin-right:2px;animation:pulse 1.6s ease-in-out infinite}
+.dailybtn.done{background:var(--surface);color:var(--ink);border-color:var(--line)}
+.dailybtn.done::before{content:"✓";width:auto;height:auto;background:none;color:var(--accent);animation:none;margin-right:0}
+@keyframes pulse{50%{opacity:.35}}
+@media (max-width:480px){.dailybtn{padding:6px 9px;font-size:12.5px}}
+.dailycard{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:18px;border:1px solid var(--line);border-left:4px solid var(--crit);background:var(--surface);border-radius:12px;padding:14px 18px}
+.dailycard.done{border-left-color:var(--accent)}
+.dailycard h3{font-size:17px;margin-top:2px}
+.dailycard p{margin:4px 0 0;font-size:14px;color:var(--muted)}
+.dailycard .k{font-size:12.5px;color:var(--crit);font-weight:600}
+.dailycard.done .k{color:var(--accent)}
+.dailytag{display:inline-block;font-size:13px;font-weight:600;color:var(--crit);background:color-mix(in srgb,var(--crit) 10%,transparent);border-radius:99px;padding:3px 12px;margin-bottom:10px}
+.simown{grid-column:1/-1;border:1px solid var(--line);border-radius:10px;padding:10px 14px;background:var(--surface)}
+.simown summary{cursor:pointer;font-weight:600}
+.simown .outbox{margin-top:8px}
+/* gelişim grafikleri (tek seri, tek renk) */
+.spbig{margin-top:10px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px;max-width:680px}
+.spark{display:block;width:100%;height:auto;overflow:visible}
+.spbig .spark{height:150px}
+.spark .ln{fill:none;stroke:var(--accent);stroke-width:2;vector-effect:non-scaling-stroke}
+.spark .pt{fill:var(--accent);stroke:var(--surface);stroke-width:2;vector-effect:non-scaling-stroke}
+.spark .pt:hover{r:6}
+.spark .gr{stroke:var(--line);stroke-width:1;vector-effect:non-scaling-stroke}
+.spark .ax{fill:var(--muted);font-size:10px;font-family:var(--text)}
+.sprows{margin-top:10px;border-top:1px solid var(--line);max-width:680px}
+.sprow{display:grid;grid-template-columns:1.2fr 220px 50px 64px;gap:14px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
+.sprow .spark{height:36px}
+.sprow .v{font-weight:600;text-align:right}
+.sprow .d{font-size:13px;color:var(--muted);text-align:right}
+.sprow .d.up{color:var(--accent)} .sprow .d.down{color:var(--crit)}
+@media (max-width:640px){.sprow{grid-template-columns:1fr 50px 64px}.sprow .spark{grid-column:1/-1;grid-row:2}}
+/* kavram kartları */
+.fcard{min-height:170px;border:1px solid var(--line);border-radius:14px;background:var(--paper);padding:22px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.fcard .grp{font-size:12.5px;color:var(--muted)}
+.fcard .on{font:700 20px/1.35 var(--display)}
+.fcard .arka{font-size:15.5px;line-height:1.6;white-space:pre-wrap;border-top:1px solid var(--line);padding-top:12px}
+.cardnav{display:flex;gap:8px;justify-content:flex-end;margin-top:14px;flex-wrap:wrap}
+/* şablonlar */
+.tpl{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-top:12px}
+.tpl header{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap}
+.tpl h3{font-size:17px}
+.tpl .k{font-size:12.5px;color:var(--muted)}
+.tpl pre{white-space:pre-wrap;font:14px/1.6 var(--text);background:var(--paper);border-radius:10px;padding:12px 14px;margin:10px 0 0;overflow-x:auto}
+.tpl .tip{margin:10px 0 0;font-size:14px;background:var(--accent-soft);border-radius:8px;padding:8px 12px}
+.tpl .links{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+/* sınavlar */
+.exrow{display:grid;grid-template-columns:52px 1.4fr 1fr auto;gap:14px;align-items:center;padding:12px 4px;border-bottom:1px solid var(--line)}
+.exrow .code{font:800 18px/1 var(--display);color:var(--muted)}
+.exrow .nm{font-weight:600}
+.exrow .nm small{display:block;color:var(--muted);font-weight:400;font-size:13px}
+.exrow .act{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+@media (max-width:640px){.exrow{grid-template-columns:40px 1fr}.exrow > :nth-child(3),.exrow .act{grid-column:2;justify-content:flex-start}}
+
 .empty{padding:30px 0;color:var(--muted)}
 .foot{margin-top:60px;color:var(--muted);font-size:13px}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
 <body>
@@ -465,6 +522,7 @@ details.out summary{cursor:pointer;color:var(--muted);font-size:14px}
       <button role="tab" data-view="kaynak" aria-selected="false">Kaynaklar</button>
     </nav>
     <div class="acct">
+      <button class="btn sm dailybtn" id="dailyBtn" type="button" data-daily title="Her gün herkese aynı satış görüşmesi senaryosu">Günün görüşmesi</button>
       <button class="btn sm" id="acctBtn" type="button">Giriş yap</button>
       <span class="sync" id="sync" aria-live="polite">Yükleniyor…</span>
     </div>
@@ -514,6 +572,10 @@ details.out summary{cursor:pointer;color:var(--muted);font-size:14px}
   </div>
 </dialog>
 
+<dialog class="auth quizdlg" id="cardDlg" aria-label="Kavram kartları">
+  <div class="qz" id="cardBody"></div>
+</dialog>
+
 <dialog class="auth quizdlg" id="onbDlg" aria-labelledby="onbTitle">
   <div class="qz" id="onbBody"></div>
 </dialog>
@@ -535,7 +597,9 @@ let DATA, TOP, PH;
 // outputs: {konuId: {url, text, at}}, calc: {hesaplayıcı değerleri}, startDate: "YYYY-MM-DD"
 // doneAt: {konuId: tamamlanma tarihi}, profile: başlangıç sorularının cevapları, placement: seviye testi sonucu
 // planWeek: bu haftanın plan kesiti {start, key, ids, h}, planPrev: geçen haftanın sonucu
-const emptyState = () => ({ topics:{}, steps:{}, notes:{}, quiz:{}, review:{}, outputs:{}, calc:{}, startDate:null, doneAt:{}, profile:null, placement:null });
+// sims: simülasyon geçmişi, daily: günün görüşmesi sonuçları {tarih: {ikna, out, ad}}, exams: faz sınavları {faz: {best, last, at, passedAt, code}},
+// cards: kavram kartları {kartId: {b: kutu, due}}, cardsDay: {d, n} günlük yeni kart sayacı
+const emptyState = () => ({ topics:{}, steps:{}, notes:{}, quiz:{}, review:{}, outputs:{}, calc:{}, startDate:null, doneAt:{}, profile:null, placement:null, daily:{}, exams:{}, cards:{} });
 let state = emptyState();
 const LS_KEY = "satis-akademisi-v1", LS_OWNER = "satis-akademisi-owner", LS_DIRTY = "satis-akademisi-dirty";
 const lsGet = k => { try{ return localStorage.getItem(k); }catch(e){ return null; } };
@@ -906,6 +970,10 @@ document.addEventListener("input", e => {
   }
 });
 document.addEventListener("click", e => {
+  if(!DATA) return;
+  const dl = e.target.closest("[data-daily]"); if(dl){ if(typeof simOpenDaily === "function") simOpenDaily(); return; }
+  const ck = e.target.closest("[data-cards]"); if(ck){ startCards(); return; }
+  const sp = e.target.closest("[data-simp]"); if(sp){ if(typeof simOpenPractice === "function") simOpenPractice(sp.dataset.simp); return; }
   const g = e.target.closest("[data-goto]");
   if(g && DATA){ const v = g.dataset.goto; if(v === "plan") renderPlan(); if(v === "tekrar") renderTekrar(); if(v === "portfoy") renderPortfoy(); show(v); return; }
   const q = e.target.closest("[data-quiz]");
@@ -1017,12 +1085,51 @@ function renderProje(){
 }
 
 /* ---------- Kaynaklar ---------- */
-const rf = { tur:"all", q:"" };
+const rf = { tur:"all", q:"", view:"kaynak", tkat:"all" };
+let TPL = null, tplLoading = null;
+function loadTemplates(){
+  if(TPL) return Promise.resolve(TPL);
+  if(!tplLoading) tplLoading = fetch("templates.json", { cache:"no-cache" }).then(r => { if(!r.ok) throw new Error("HTTP " + r.status); return r.json(); }).then(d => (TPL = d)).catch(e => { tplLoading = null; throw e; });
+  return tplLoading;
+}
+const kaynakTabs = () => `<div class="chips" role="group" aria-label="Görünüm" style="margin-top:14px">${[["kaynak", "Öğrenme kaynakları"], ["sablon", "Şablon kütüphanesi"]].map(([k, l]) => `<button class="chip" data-kv="${k}" aria-pressed="${rf.view === k}">${l}</button>`).join("")}</div>`;
+function renderSablon(){
+  const v = $("#v-kaynak");
+  if(!TPL){
+    v.innerHTML = `<h2>Şablon kütüphanesi</h2>${kaynakTabs()}<p class="lede">Yükleniyor…</p>`;
+    $$("#v-kaynak [data-kv]").forEach(b => b.addEventListener("click", () => { rf.view = b.dataset.kv; renderKaynak(); }));
+    loadTemplates().then(renderSablon).catch(() => { v.innerHTML = `<h2>Şablon kütüphanesi</h2>${kaynakTabs()}<p class="empty">Şablonlar yüklenemedi.</p>`; });
+    return;
+  }
+  const kats = [...new Set(TPL.map(t => t.kat))];
+  const list = TPL.filter(t => rf.tkat === "all" || t.kat === rf.tkat);
+  v.innerHTML = `<h2>Şablon kütüphanesi</h2>
+    <p class="lede">Sahada hemen kullanabileceğin e-posta, arama, görüşme, kapanış ve müzakere şablonları. Köşeli parantezli yerleri kendi bilgilerinle doldur; kopyalayıp e-postana ya da dokümanına yapıştır.</p>
+    ${kaynakTabs()}
+    <div class="chips">${[["all", "Tümü"], ...kats.map(k => [k, k])].map(([k, l]) => `<button class="chip sm" data-tk="${esc(k)}" aria-pressed="${rf.tkat === k}">${esc(l)}</button>`).join("")}</div>
+    <div class="count">${list.length} şablon</div>
+    ${list.map(t => `<article class="tpl" id="tpl-${esc(t.id)}"><header><div><div class="k">${esc(t.kat)}</div><h3>${esc(t.ad)}</h3></div><button class="btn sm primary" type="button" data-copy="${esc(t.id)}">Kopyala</button></header>
+      <p class="simhint"><b>Ne zaman:</b> ${esc(t.ne_zaman)}</p>
+      <pre>${esc(t.metin)}</pre>
+      <p class="tip"><b>İpucu:</b> ${esc(t.ipucu)}</p>
+      <div class="links">${(t.konular || []).filter(id => TOP[id]).map(id => `<button class="chip sm" type="button" data-topic="${id}">${id} ${esc(TOP[id].konu)}</button>`).join("")}</div></article>`).join("")}`;
+  $$("#v-kaynak [data-kv]").forEach(b => b.addEventListener("click", () => { rf.view = b.dataset.kv; renderKaynak(); }));
+  $$("#v-kaynak [data-tk]").forEach(b => b.addEventListener("click", () => { rf.tkat = b.dataset.tk; renderSablon(); }));
+  $$("#v-kaynak [data-topic]").forEach(b => b.addEventListener("click", () => openTopic(b.dataset.topic)));
+  $$("#v-kaynak [data-copy]").forEach(b => b.addEventListener("click", async () => {
+    const t = TPL.find(x => x.id === b.dataset.copy);
+    try{ await Promise.race([navigator.clipboard.writeText(t.metin), new Promise((_, no) => setTimeout(() => no(new Error("zaman aşımı")), 1000))]); b.textContent = "Kopyalandı ✓"; }
+    catch(e){ const r = document.createRange(); r.selectNodeContents(b.closest(".tpl").querySelector("pre")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = "Seçildi, Ctrl+C"; }
+    setTimeout(() => { b.textContent = "Kopyala"; }, 1800);
+  }));
+}
 function renderKaynak(){
+  if(rf.view === "sablon") return renderSablon();
   const types = [...new Set(DATA.resources.map(r => r.tur))];
   const list = DATA.resources.filter(r => (rf.tur==="all"||r.tur===rf.tur) && (!rf.q || [r.ad,r.saglayici,r.nasil,r.fazlar].join(" ").toLocaleLowerCase("tr").includes(rf.q.toLocaleLowerCase("tr"))));
   $("#v-kaynak").innerHTML = `<h2>Kaynaklar: nereden, nasıl öğrenilir?</h2>
     <p class="lede">Sıralama önerisi: önce ücretsiz sertifikalar (HubSpot Academy, Trailhead) ve podcast'ler, faz ilerledikçe kitaplar, bütçe oluştuğunda MEDDICC, Winning by Design veya Pavilion gibi ücretli programlar.</p>
+    ${kaynakTabs()}
     <div class="controls"><input class="search" type="search" placeholder="Kaynak ara" value="${esc(rf.q)}" aria-label="Kaynaklarda ara"></div>
     <div class="chips">${[["all","Tümü"],...types.map(t=>[t,t])].map(([k,l]) => `<button class="chip" data-rt="${esc(k)}" aria-pressed="${rf.tur===k}">${esc(l)}</button>`).join("")}</div>
     <div class="count">${list.length} kaynak</div>
@@ -1033,6 +1140,7 @@ function renderKaynak(){
   const s = $("#v-kaynak .search");
   s.addEventListener("input", e => { rf.q = e.target.value; const pos = e.target.selectionStart; renderKaynak(); const n = $("#v-kaynak .search"); n.focus(); n.setSelectionRange(pos,pos); });
   $$("#v-kaynak [data-rt]").forEach(b => b.addEventListener("click", () => { rf.tur = b.dataset.rt; renderKaynak(); }));
+  $$("#v-kaynak [data-kv]").forEach(b => b.addEventListener("click", () => { rf.view = b.dataset.kv; renderKaynak(); }));
 }
 
 /* ---------- Quiz ---------- */
@@ -1096,6 +1204,7 @@ function answerQuestion(o){
   const it = qs.items[qs.pos], ok = o === it.q.a;
   if(ok) qs.correct++; else qs.wrong.push(it.i);
   if(qs.mode === "placement") qs.res[it.tid] = ok ? 1 : 0;
+  if(qs.mode === "exam" && !ok) qs.wrongItems.push(it);
   $$("#qzBody .qzopt").forEach(b => { b.disabled = true; const v = +b.dataset.opt; if(v === it.q.a) b.classList.add("right"); else if(v === o) b.classList.add("wrong"); });
   const last = qs.pos === qs.items.length - 1;
   $("#qzFb").innerHTML = `<div class="qzfb ${ok ? "ok" : "no"}"><b>${ok ? "Doğru!" : "Yanlış. Doğru cevap: " + esc(it.q.o[it.q.a])}</b>${esc(it.q.e)}</div>
@@ -1105,6 +1214,7 @@ function answerQuestion(o){
 }
 function finishQuiz(){
   if(qs.mode === "placement") return finishPlacement();
+  if(qs.mode === "exam") return finishExam();
   const { id, mode, correct, items, wrong } = qs, n = items.length, p = pct(correct, n);
   let note = "";
   if(mode === "full"){
@@ -1146,6 +1256,8 @@ function initQuiz(){
     else if(a === "wrong") startQuiz(qs.id, "wrong");
     else if(a === "again") startQuiz(qs.id, "full");
     else if(a === "plan"){ dlg.close(); renderYol(); renderPlan(); show("plan"); }
+    else if(a === "cert") openCertificate(qs.faz);
+    else if(a === "exam") startExam(qs.faz);
   });
   // Klavye: 1-4 veya A-D ile cevapla
   dlg.addEventListener("keydown", e => {
@@ -1157,6 +1269,142 @@ function initQuiz(){
     const id = qs && qs.id; qs = null;
     renderYol(); renderPlan(); renderTekrar(); if(id && document.getElementById("t-" + id.replace(".", "-"))) refreshTopic(id);
   });
+}
+
+/* ---------- Faz sınavı ve sertifika ---------- */
+const EXAM_N = 30, EXAM_PASS = 0.8;
+async function startExam(faz){
+  const dlg = $("#quizDlg");
+  $("#qzTitle").textContent = `${faz} faz sınavı: ${PH[faz].ad}`;
+  $("#qzMode").textContent = "Sorular yükleniyor…";
+  $("#qzBody").innerHTML = ""; $("#qzBar").style.width = "0%";
+  if(!dlg.open) dlg.showModal();
+  let Q;
+  try{ Q = await loadQuiz(); }
+  catch(e){ console.error(e); $("#qzMode").textContent = ""; $("#qzBody").innerHTML = `<div class="qzfb no"><b>Sorular yüklenemedi.</b>İnternet bağlantını kontrol edip tekrar dene.</div>`; return; }
+  // Fazın bütün konularından sırayla, her turda her konudan rastgele bir soru (konular dengeli temsil edilir)
+  const pools = shuffle(DATA.topics.filter(t => t.faz === faz && (Q[t.id] || []).length)).map(t => ({ t, idx:shuffle(Q[t.id].map((_, i) => i)) }));
+  const items = [];
+  while(items.length < EXAM_N && pools.some(p => p.idx.length)){
+    for(const p of pools){ if(items.length >= EXAM_N) break; const i = p.idx.pop(); if(i != null) items.push({ i, tid:p.t.id, q:Q[p.t.id][i], order:shuffle([0, 1, 2, 3]) }); }
+  }
+  qs = { id:null, mode:"exam", faz, items:shuffle(items), pos:0, correct:0, wrong:[], wrongItems:[], answered:false };
+  $("#qzMode").textContent = `${qs.items.length} soru, fazın bütün konularından. Geçme notu %${Math.round(EXAM_PASS * 100)}.`;
+  renderQuestion();
+}
+const certCode = (faz, at, ad) => (typeof simHash === "function" ? simHash(faz + "|" + at + "|" + ad) : Date.now()).toString(36).toUpperCase().padStart(7, "0").slice(-7);
+function finishExam(){
+  const { faz, correct, items, wrongItems } = qs, n = items.length, p = pct(correct, n), passed = correct / n >= EXAM_PASS;
+  const prev = state.exams[faz] || {};
+  const rec = { best:Math.max(prev.best || 0, p), last:p, at:todayStr(), n, passedAt:prev.passedAt || (passed ? todayStr() : null) };
+  if(rec.passedAt) rec.score = Math.max(prev.score || 0, passed ? p : 0) || prev.score || p;
+  state.exams[faz] = rec; persist();
+  $("#qzBar").style.width = "100%";
+  $("#qzMode").textContent = "Sınav sonucu";
+  $("#qzBody").innerHTML = `<div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap"><span class="qzscore ${passed ? "" : "low"}">%${p}</span><span style="color:var(--muted)">${correct} / ${n} doğru<br>${passed ? `Tebrikler, ${faz} fazını geçtin! Sertifikan hazır.` : `Geçmek için %${Math.round(EXAM_PASS * 100)} gerekiyor. Yanlış yaptığın konulara dönüp tekrar dene.`}</span></div>
+    ${wrongItems.length ? `<h3 style="margin-top:18px;font-size:16px">Yanlış yaptığın sorular</h3><ul class="qzlist">${wrongItems.map(it => `<li><b>${esc(it.q.q)}</b>Doğru cevap: <span>${esc(it.q.o[it.q.a])}</span><br>${esc(it.q.e)}<br><small style="color:var(--muted)">${it.tid} ${esc(TOP[it.tid].konu)}</small></li>`).join("")}</ul>` : ""}
+    <div class="qznav">${rec.passedAt ? `<button class="btn primary" type="button" data-qz="cert">Sertifikayı görüntüle</button>` : ""}<button class="btn" type="button" data-qz="exam">Sınava tekrar gir</button><button class="btn ${rec.passedAt ? "" : "primary"}" type="button" data-qz="close">Kapat</button></div>`;
+  ($("#qzBody [data-qz=cert]") || $("#qzBody [data-qz=close]")).focus();
+}
+function openCertificate(faz){
+  const rec = state.exams[faz]; if(!rec || !rec.passedAt) return;
+  const guess = state.certName || (user && user.email ? user.email.split("@")[0] : "");
+  const ad = (prompt("Sertifikada görünecek adın ve soyadın:", guess) || "").trim();
+  if(!ad) return;
+  if(ad !== state.certName){ state.certName = ad; persist(); }
+  const P = PH[faz], code = certCode(faz, rec.passedAt, ad);
+  const w = window.open("", "_blank");
+  if(!w){ alert("Sertifika yeni pencerede açılamadı. Tarayıcının açılır pencere engelini bu site için kapatıp tekrar dene."); return; }
+  const e = s => String(s).replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]));
+  w.document.write(`<!DOCTYPE html><html lang="tr"><head><meta charset="utf-8"><title>Sertifika – ${e(faz)} ${e(P.ad)}</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>@page{size:A4 landscape;margin:0}body{margin:0;background:#E9EDF1;font:400 16px/1.5 "IBM Plex Sans",sans-serif;color:#13213C}
+.c{width:277mm;height:190mm;margin:10mm auto;background:#fff;border:2px solid #0E7C66;outline:8px solid #fff;box-shadow:0 0 0 10px #D5EEE6;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:18mm;box-sizing:border-box}
+.k{letter-spacing:.2em;text-transform:uppercase;font-size:13px;color:#5B6474}h1{font:800 44px/1.1 "Bricolage Grotesque",sans-serif;margin:8px 0 18px}
+.n{font:700 34px/1.2 "Bricolage Grotesque",sans-serif;color:#0E7C66;border-bottom:2px solid #DCE1E8;padding:0 30px 8px;margin:10px 0 14px}
+.p{max-width:180mm;color:#3A4456}.f{display:flex;gap:40mm;margin-top:18mm;font-size:13px;color:#5B6474}.f b{display:block;color:#13213C;font-size:15px}
+.bar{position:fixed;top:12px;right:12px}.bar button{font:600 14px "IBM Plex Sans";padding:8px 14px;border-radius:8px;border:1px solid #0E7C66;background:#0E7C66;color:#fff;cursor:pointer}
+@media print{body{background:#fff}.c{margin:0;box-shadow:none}.bar{display:none}}</style></head><body>
+<div class="bar"><button onclick="print()">Yazdır / PDF olarak kaydet</button></div>
+<div class="c"><div class="k">Satış Akademisi · Tamamlama Belgesi</div><h1>${e(faz)} · ${e(P.ad)}</h1><div>Bu belge</div><div class="n">${e(ad)}</div>
+<p class="p">adlı katılımcının Satış Akademisi programının <b>${e(P.ad)}</b> fazını tamamladığını ve faz sınavını <b>%${e(rec.score || rec.best)}</b> başarıyla geçtiğini belgeler. Faz amacı: ${e(P.amac)}</p>
+<div class="f"><div>Tarih<b>${e(parseDate(rec.passedAt).toLocaleDateString("tr-TR", { day:"numeric", month:"long", year:"numeric" }))}</b></div><div>Belge kodu<b>${e(code)}</b></div><div>Sınav<b>${e(rec.n || EXAM_N)} soru, geçme notu %${Math.round(EXAM_PASS * 100)}</b></div></div></div></body></html>`);
+  w.document.close();
+}
+
+/* ---------- Kavram kartları (aralıklı tekrar) ---------- */
+// Kartlar içerikten üretilir: 20 metodoloji özeti, bileşenleri ve metrik formülleri. Kutu sistemi: bildikçe aralık uzar.
+const CARD_DAYS = [1, 3, 7, 16, 35], CARD_NEW = 10;
+let CARDS = null, cs = null;
+function buildCards(){
+  if(CARDS) return CARDS;
+  CARDS = [];
+  DATA.methods.forEach((m, i) => {
+    CARDS.push({ id:`m${i}`, grp:m.ad, on:`${m.ad} nedir, ne zaman kullanılır?`, arka:m.ozet + (m.ne_zaman ? "\n\nNe zaman: " + m.ne_zaman : "") });
+    (m.bilesenler || []).forEach((b, j) => CARDS.push({ id:`m${i}b${j}`, grp:m.ad, on:`${m.ad}: ${b.ad}`, arka:b.aciklama }));
+  });
+  DATA.metrics.forEach((k, i) => CARDS.push({ id:`k${i}`, grp:"Metrikler", on:`${k.ad} nasıl hesaplanır?`, arka:`${k.formul}\n\n${k.yorum}` }));
+  return CARDS;
+}
+function cardsQueue(){
+  const t = todayStr(), rec = state.cards || {};
+  const due = buildCards().filter(c => rec[c.id] && rec[c.id].due <= t);
+  const used = state.cardsDay && state.cardsDay.d === t ? state.cardsDay.n : 0;
+  const fresh = buildCards().filter(c => !rec[c.id]).slice(0, Math.max(0, CARD_NEW - used));
+  return { due, fresh };
+}
+function cardsDueCount(){ if(!DATA) return 0; const q = cardsQueue(); return q.due.length + q.fresh.length; }
+function startCards(){
+  const q = cardsQueue();
+  cs = { list:[...shuffle(q.due), ...q.fresh], pos:0, shown:false, ok:0, again:0, retry:new Set() };
+  const d = $("#cardDlg"); if(!d.open) d.showModal();
+  renderCard();
+}
+function renderCard(){
+  const b = $("#cardBody");
+  if(!cs.list.length || cs.pos >= cs.list.length){
+    const learned = Object.values(state.cards || {}).filter(r => r.b >= 3).length;
+    b.innerHTML = `<header class="qzhead"><div><div class="k">Kavram kartları</div><h2>${cs.list.length ? "Bugünkü kartlar bitti" : "Bugün tekrar edilecek kart yok"}</h2></div><button class="btn sm" type="button" data-cd="close">Kapat</button></header>
+      <p style="margin-top:14px">${cs.list.length ? `${cs.ok} kartı bildin, ${cs.again} kart yarın tekrar gelecek.` : "Yeni kart hakkını da kullandın; yarın yeni kartlar gelecek."} Toplam ${buildCards().length} karttan ${learned} tanesi kalıcı öğrenildi.</p>
+      <div class="cardnav"><button class="btn primary" type="button" data-cd="close">Tamam</button></div>`;
+    b.querySelector("[data-cd=close]").focus();
+    return;
+  }
+  const c = cs.list[cs.pos], isNew = !(state.cards || {})[c.id];
+  b.innerHTML = `<header class="qzhead"><div><div class="k">Kavram kartları · ${cs.pos + 1} / ${cs.list.length}${isNew ? " · yeni" : ""}</div><h2>Hatırlıyor musun?</h2></div><button class="btn sm" type="button" data-cd="close">Kapat</button></header>
+    <div class="qzbar"><i style="width:${pct(cs.pos, cs.list.length)}%"></i></div>
+    <div class="fcard"><div class="grp">${esc(c.grp)}</div><div class="on">${esc(c.on)}</div>${cs.shown ? `<div class="arka">${esc(c.arka)}</div>` : ""}</div>
+    <div class="cardnav">${cs.shown ? `<button class="btn" type="button" data-cd="no">Bilemedim (1)</button><button class="btn primary" type="button" data-cd="yes">Bildim (2)</button>` : `<button class="btn primary" type="button" data-cd="show">Cevabı göster (boşluk)</button>`}</div>`;
+  (b.querySelector("[data-cd=yes]") || b.querySelector("[data-cd=show]")).focus();
+}
+function gradeCard(ok){
+  const c = cs.list[cs.pos], t = todayStr();
+  state.cards = state.cards || {};
+  const prev = state.cards[c.id];
+  if(!prev){ state.cardsDay = { d:t, n:(state.cardsDay && state.cardsDay.d === t ? state.cardsDay.n : 0) + 1 }; }
+  if(ok){ const b = prev ? Math.min(CARD_DAYS.length - 1, prev.b + 1) : 0; state.cards[c.id] = { b, due:addDays(t, CARD_DAYS[b]) }; cs.ok++; }
+  else {
+    state.cards[c.id] = { b:0, due:addDays(t, 1) }; cs.again++;
+    // Bilemediğin kart oturumun sonunda bir kez daha sorulur
+    if(!cs.retry.has(c.id)){ cs.retry.add(c.id); cs.list.push(c); }
+  }
+  persist();
+  cs.pos++; cs.shown = false; renderCard();
+}
+function initCards(){
+  const d = $("#cardDlg");
+  d.addEventListener("click", e => {
+    const b = e.target.closest("[data-cd]"); if(!b) return;
+    const a = b.dataset.cd;
+    if(a === "close") d.close(); else if(a === "show"){ cs.shown = true; renderCard(); } else if(a === "yes") gradeCard(true); else if(a === "no") gradeCard(false);
+  });
+  d.addEventListener("keydown", e => {
+    if(!cs || cs.pos >= cs.list.length || e.ctrlKey || e.metaKey || e.altKey) return;
+    if(!cs.shown && (e.key === " " || e.key === "Enter")){ e.preventDefault(); cs.shown = true; renderCard(); }
+    else if(cs.shown && e.key === "1"){ e.preventDefault(); gradeCard(false); }
+    else if(cs.shown && e.key === "2"){ e.preventDefault(); gradeCard(true); }
+  });
+  d.addEventListener("close", () => { renderTekrar(); renderPlan(); });
 }
 
 /* ---------- Quiz ve tekrar sayfası ---------- */
@@ -1189,6 +1437,10 @@ function renderTekrar(){
       <div class="stat"><div class="v">%${avg}</div><div class="n">Ortalama en iyi skor</div></div>
       <div class="stat"><div class="v">${mastered}</div><div class="n">Kalıcı öğrenilen konu</div></div>
     </div>
+    ${(() => { const q = cardsQueue(), all = buildCards().length, rec = state.cards || {}, seen = Object.keys(rec).length, learned = Object.values(rec).filter(r => r.b >= 3).length, n = q.due.length + q.fresh.length;
+      return `<div class="section"><h2>Kavram kartları</h2><p class="lede">Metodolojilerin bileşenleri (MEDDPICC harfleri, SPIN soru tipleri…) ve metrik formülleri için ${all} kart. Bildiğin kartlar gittikçe seyrek, bilemediklerin ertesi gün tekrar gelir. Günde en fazla ${CARD_NEW} yeni kart.</p>
+        <div class="stats"><div class="stat"><div class="v">${q.due.length}</div><div class="n">Bugün tekrar edilecek kart</div></div><div class="stat"><div class="v">${q.fresh.length}</div><div class="n">Bugünkü yeni kart</div></div><div class="stat"><div class="v">${seen} / ${all}</div><div class="n">Çalışılan kart</div></div><div class="stat"><div class="v">${learned}</div><div class="n">Kalıcı öğrenilen kart</div></div></div>
+        <div class="controls"><button class="btn primary" type="button" data-cards ${n ? "" : "disabled"}>${n ? `Bugünkü kartlara başla (${n})` : "Bugünkü kartlar tamam"}</button></div></div>`; })()}
     <div class="section"><h2>Bugün tekrar edilecekler</h2>
       ${due.length ? `<div class="cards">${due.map(r => card(r.id, stageLbl(r.stage), qb(r.id, "5 soruyla tekrar et", "review", true) + `<button class="btn sm" type="button" data-topic="${r.id}">Konuyu aç</button>`)).join("")}</div>`
         : `<p class="lede">Bugün tekrar edilecek konu yok.${upcoming.length ? ` Sıradaki tekrar ${fmtDate(upcoming[0][1].due)}.` : " Konuları tamamlandı olarak işaretledikçe tekrar takvimi burada oluşur."}</p>`}
@@ -1197,6 +1449,12 @@ function renderTekrar(){
       <div class="cards">${weak.map(id => card(id, "en iyi %" + quizPct(id), ((state.quiz[id].wrong || []).length ? qb(id, `Yanlışları çöz (${state.quiz[id].wrong.length})`, "wrong", true) : "") + qb(id, "Quizi tekrar çöz", "", !(state.quiz[id].wrong || []).length))).join("")}</div></div>` : ""}
     ${doneNoQuiz.length ? `<div class="section"><h2>Tamamladığın ama quizini çözmediğin konular</h2>
       <div class="cards">${doneNoQuiz.slice(0, 12).map(x => card(x.id, "", qb(x.id, "Quizi başlat", "", true))).join("")}</div>${doneNoQuiz.length > 12 ? `<p class="count">ve ${doneNoQuiz.length - 12} konu daha</p>` : ""}</div>` : ""}
+    <div class="section"><h2>Faz sınavları ve sertifikalar</h2><p class="lede">Her faz için fazın bütün konularından karışık ${EXAM_N} soru. %${Math.round(EXAM_PASS * 100)} ve üzeri alırsan o fazın tamamlama sertifikasını indirebilirsin. Fazın konularını bitirdikten sonra girmeni öneririz.</p>
+      <div class="phases">${DATA.phases.map(p => { const r = state.exams[p.kod], s = phaseStats(p.kod);
+        return `<div class="exrow"><span class="code">${p.kod}</span><span class="nm">${esc(p.ad)}<small>Konular: ${s.done}/${s.n} tamam</small></span>
+          <span>${r ? (r.passedAt ? `<span class="qbadge good">Geçti · %${r.best} · ${fmtDate(r.passedAt)}</span>` : `<span class="qbadge low">Son deneme %${r.last}</span>`) : `<span class="qbadge">Henüz girmedin</span>`}</span>
+          <span class="act">${r && r.passedAt ? `<button class="btn sm" type="button" data-cert="${p.kod}">Sertifika</button>` : ""}<button class="btn sm ${r && r.passedAt ? "" : "primary"}" type="button" data-exam="${p.kod}">${r ? "Tekrar gir" : "Sınava gir"}</button></span></div>`; }).join("")}</div>
+    </div>
     <div class="section"><h2>Herhangi bir konunun quizini çöz</h2>
       <div class="controls"><select id="anyQuiz" aria-label="Quiz konusu" style="flex:1 1 320px;min-width:0">${DATA.phases.map(p => `<optgroup label="${p.kod} ${esc(p.ad)}">${DATA.topics.filter(x => x.faz === p.kod).map(x => `<option value="${x.id}">${x.id} ${esc(x.konu)}${quizPct(x.id) != null ? ` (%${quizPct(x.id)})` : ""}</option>`).join("")}</optgroup>`).join("")}</select>
       <button class="btn primary" type="button" id="anyQuizGo">Quizi başlat</button></div>
@@ -1204,6 +1462,8 @@ function renderTekrar(){
     ${upcoming.length ? `<div class="section"><h2>Yaklaşan tekrarlar</h2><div class="res">${upcoming.slice(0, 15).map(([id, r]) => `<div class="rrow" style="grid-template-columns:150px 1fr"><div class="t">${fmtDate(r.due)}</div><div><h4><button data-topic="${id}" style="background:none;border:0;padding:0;color:var(--ink);cursor:pointer;text-align:left;font:inherit">${esc(TOP[id].konu)}</button></h4><div class="by">${stageLbl(r.stage)}</div></div></div>`).join("")}</div></div>` : ""}`;
   $("#anyQuizGo").addEventListener("click", () => startQuiz($("#anyQuiz").value, "full"));
   $$("#v-tekrar [data-topic]").forEach(b => b.addEventListener("click", () => openTopic(b.dataset.topic)));
+  $$("#v-tekrar [data-exam]").forEach(b => b.addEventListener("click", () => startExam(b.dataset.exam)));
+  $$("#v-tekrar [data-cert]").forEach(b => b.addEventListener("click", () => openCertificate(b.dataset.cert)));
 }
 
 /* ---------- Portföy ---------- */
@@ -1267,9 +1527,12 @@ function focusPhases(p){
   return new Set([...g.ana, ...g.yan, ...(p.struggles || []).flatMap(k => STRUG[k] ? STRUG[k].faz : [])]);
 }
 // Öncelik puanı: konu önceliği + hedef fazı + zorlanılan alan + seviye + seviye testi + yarım kalan konu
-function topicScore(t, p){
+// Simülasyonda son görüşmelerde %60'ın altında kalan becerilerin konuları
+const simWeakTopicSet = () => new Set(typeof simWeakSkills === "function" ? simWeakSkills().flatMap(s => s.konular) : []);
+function topicScore(t, p, wt){
   const g = GOALS[p.goal] || GOALS.genel;
   let s = PRIO_PTS[t.oncelik] || 1;
+  if(wt && wt.has(t.id)) s += 1.5;
   if(g.ana.includes(t.faz)) s += 3; else if(g.yan.includes(t.faz)) s += 1.5;
   if((p.struggles || []).some(k => STRUG[k] && STRUG[k].faz.includes(t.faz))) s += 2;
   if(t.faz === "F1") s += p.level === 0 ? 3 : p.level >= 2 ? -1.5 : 0;
@@ -1285,8 +1548,8 @@ function inScope(t, p, fp){
 }
 function buildPlan(p){
   p = p || state.profile; if(!p) return null;
-  const fp = focusPhases(p);
-  const rest = DATA.topics.filter(t => st(t.id) !== "done").map(t => ({ t, id:t.id, s:topicScore(t, p), h:topicHours(t), fast:plKnown(t.id) === 1, weak:plKnown(t.id) === 0, inn:inScope(t, p, fp) }));
+  const fp = focusPhases(p), wt = simWeakTopicSet();
+  const rest = DATA.topics.filter(t => st(t.id) !== "done").map(t => ({ t, id:t.id, s:topicScore(t, p, wt), sim:wt.has(t.id),h:topicHours(t), fast:plKnown(t.id) === 1, weak:plKnown(t.id) === 0, inn:inScope(t, p, fp) }));
   // Sıra: yarım kalanlar, sonra puan kademesi, kademe içinde müfredat sırası (ön koşullar korunur), capstone'lar en sonda
   const tier = x => st(x.id) === "doing" ? -1 : x.t.faz === "F10" ? 9 : x.s >= 6 ? 0 : x.s >= 4 ? 1 : 2;
   const list = rest.filter(x => x.inn).sort((a, b) => tier(a) - tier(b) || IDX[a.id] - IDX[b.id]);
@@ -1338,8 +1601,16 @@ function todaySession(plan, mins){
   const tasks = []; let left = mins;
   const add = t => { tasks.push(t); left -= t.m; };
   for(const r of dueReviews()){ if(left < 10) break; add({ m:10, kind:"review", id:r.id, h:"Tekrar: " + TOP[r.id].konu, c:"5 soruluk aralıklı tekrar, " + stageLbl(r.stage) }); }
+  if(typeof simDailyDone === "function" && !simDailyDone() && left >= 15){
+    const sk = typeof simStreak === "function" ? simStreak() : 0;
+    add({ m:15, kind:"daily", h:"Günün satış görüşmesi", c:`Herkese aynı senaryo, 10-15 tur.${sk ? ` Serin ${sk} gün, bozma!` : " Bir seri başlat."}` });
+  }
+  const cd = cardsDueCount();
+  if(cd && left >= 5) add({ m:Math.min(15, Math.max(5, Math.ceil(cd / 2))), kind:"cards", h:`Kavram kartları (${cd} kart)`, c:"Aralıklı tekrar: bildiğin kartlar seyrekleşir, bilemediklerin yarın tekrar gelir" });
   const weak = Object.keys(state.quiz).filter(id => TOP[id] && quizPct(id) < 60 && (state.quiz[id].wrong || []).length).sort((a, b) => quizPct(a) - quizPct(b));
   for(const id of weak.slice(0, 2)){ if(left < 10) break; add({ m:10, kind:"wrong", id, h:"Zayıf konu: " + TOP[id].konu, c:`Quizde en iyi %${quizPct(id)}; yanlış yaptığın ${state.quiz[id].wrong.length} soruyu tekrar çöz` }); }
+  const ws = typeof simWeakSkills === "function" ? simWeakSkills() : [];
+  if(ws.length && left >= 15) add({ m:15, kind:"simp", id:ws[0].k, h:"Simülasyon pratiği: " + ws[0].ad, c:`Son görüşmelerinde bu beceride ortalaman %${ws[0].avg}; bu beceriyi zorlayan bir senaryo hazır` });
   const nq = DATA.topics.find(t => st(t.id) === "done" && !state.quiz[t.id]);
   if(nq && left >= 25) add({ m:15, kind:"quiz", id:nq.id, h:"Quiz: " + nq.konu, c:"Tamamladın ama quizini çözmedin; 15 soruyla kalıcılığını ölç" });
   const pw = (state.planWeek && state.planWeek.ids) || [];
@@ -1401,6 +1672,9 @@ function renderPlan(){
   const taskBtn = x => x.kind === "review" ? `<button class="btn sm primary" type="button" data-quiz="${x.id}" data-qmode="review">Tekrar et</button>`
     : x.kind === "wrong" ? `<button class="btn sm primary" type="button" data-quiz="${x.id}" data-qmode="wrong">Yanlışları çöz</button>`
     : x.kind === "quiz" ? `<button class="btn sm primary" type="button" data-quiz="${x.id}">Quizi başlat</button>`
+    : x.kind === "daily" ? `<button class="btn sm danger" type="button" data-daily>Başla</button>`
+    : x.kind === "cards" ? `<button class="btn sm primary" type="button" data-cards>Kartlara başla</button>`
+    : x.kind === "simp" ? `<button class="btn sm primary" type="button" data-simp="${x.id}">Görüşmeye başla</button>`
     : `<button class="btn sm primary" type="button" data-topic="${x.id}">Konuyu aç</button>`;
   const pw = state.planWeek, pwDone = pw.ids.filter(id => st(id) === "done").length;
   const prev = state.planPrev && state.planPrev.start < pw.start ? state.planPrev : null;
@@ -1417,6 +1691,7 @@ function renderPlan(){
       <div class="stat"><div class="v">${realFinish && plan.list.length ? fmtDate(realFinish) : "–"}</div><div class="n">Gerçek temponla tahmini bitiş</div></div>
     </div>
     ${verdict}
+    ${(() => { const ws = typeof simWeakSkills === "function" ? simWeakSkills() : []; return ws.length ? `<div class="verdict warn" style="margin-top:10px"><b>Simülasyondan gelen öncelik</b>Son görüşmelerinde zayıf kalan becerilerin: ${ws.map(w => `${esc(w.ad)} (%${w.avg})`).join(", ")}. İlgili ${plan.list.filter(x => x.sim).length} konu planında öne çekildi. <button class="btn sm" type="button" data-simp="${ws[0].k}" style="margin-left:6px">Pratik görüşme yap</button></div>` : ""; })()}
     <div class="section"><h2>Bugün ne çalışayım?</h2>
       <p class="lede">Ne kadar vaktin var? Önce vadesi gelen tekrarlar ve zayıf konular, sonra planındaki sıradaki konu.</p>
       <div class="chips" role="group" aria-label="Bugünkü süre">${[30, 45, 60, 90, 120].map(m => `<button class="chip sm" type="button" data-mins="${m}" aria-pressed="${m === mins}">${m} dk</button>`).join("")}</div>
@@ -1430,7 +1705,7 @@ function renderPlan(){
       <div class="weeks">${weeks.slice(1, 9).map((w, i) => weekCard(w, i + 1)).join("")}</div>${weeks.length > 9 ? `<p class="count">ve ${weeks.length - 9} hafta daha</p>` : ""}</div>` : ""}
     <div class="section"><h2>Güçlü ve zayıf alanların</h2><p class="lede">Her kare bir konu. Durum, quiz sonuçları ve seviye testinden hesaplanır; kareye tıklayınca konu açılır.</p>${heatHTML()}</div>
     <div class="section"><h2>Sıralama nasıl yapılıyor?</h2>
-      <p class="lede">Yarım kalan konular en önde. Sonra her konuya puan verilir: konunun önceliği (Kritik, Önemli, Destek), hedefinin ana ve yan fazları, geliştirmek istediğin alanlar, deneyimin (yeni başlayanlar için temel faz öne çıkar) ve seviye testi (bildiğin konu geriye gider ve süresi kısalır, bilemediğin öne gelir). Aynı puan grubundaki konular müfredat sırasını korur; capstone projeleri en sonda.</p>
+      <p class="lede">Yarım kalan konular en önde. Sonra her konuya puan verilir: konunun önceliği (Kritik, Önemli, Destek), hedefinin ana ve yan fazları, geliştirmek istediğin alanlar, deneyimin (yeni başlayanlar için temel faz öne çıkar), seviye testi (bildiğin konu geriye gider ve süresi kısalır, bilemediğin öne gelir) ve satış simülasyonundaki sonuçların (son görüşmelerinde zayıf kalan becerilerin konuları öne çekilir). Aynı puan grubundaki konular müfredat sırasını korur; capstone projeleri en sonda.</p>
       ${plan.out.length ? `<details class="out"><summary>Odak dışında kalan ${plan.out.length} konu</summary><div class="weeks">${DATA.phases.filter(ph => plan.out.some(x => x.t.faz === ph.kod)).map(ph => `<div class="week"><header><b>${ph.kod}</b><span>${esc(ph.ad)}</span></header><ul>${plan.out.filter(x => x.t.faz === ph.kod).map(x => `<li><span class="dot"></span><button data-topic="${x.id}">${esc(x.t.konu)}</button></li>`).join("")}</ul></div>`).join("")}</div></details>` : ""}
     </div>`;
   $$("#v-plan [data-topic]").forEach(b => b.addEventListener("click", () => openTopic(b.dataset.topic)));
@@ -1577,6 +1852,15 @@ function finishPlacement(){
 function renderAll(){
   if(ensureReviews()) persist();
   renderYol(); renderPlan(); renderMufredat(); renderMetod(); renderMetrik(); renderProje(); renderTekrar(); renderPortfoy(); renderKaynak();
+  updateDailyBtn();
+  if(current === "sim" && typeof renderSim === "function") renderSim();
+}
+// Başlıktaki kırmızı düğme: bugünkü görüşme yapıldıysa sakinleşir
+function updateDailyBtn(){
+  const b = $("#dailyBtn"); if(!b) return;
+  const done = typeof simDailyDone === "function" && simDailyDone();
+  b.classList.toggle("done", done);
+  b.title = done ? "Bugünkü görüşmeyi tamamladın; istersen pratik için tekrar oynayabilirsin" : "Her gün herkese aynı satış görüşmesi senaryosu";
 }
 async function boot(){
   try{
@@ -1591,7 +1875,7 @@ async function boot(){
   TOP = Object.fromEntries(DATA.topics.map(t => [t.id, t]));
   PH = Object.fromEntries(DATA.phases.map(p => [p.kod, p]));
   IDX = Object.fromEntries(DATA.topics.map((t, i) => [t.id, i]));
-  loadLocal(); initQuiz(); initOnb(); renderAll(); initAuth();
+  loadLocal(); initQuiz(); initCards(); initOnb(); renderAll(); initAuth();
 }
 boot();
 </script>

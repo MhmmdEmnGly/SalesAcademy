@@ -1,4 +1,5 @@
-# main dalına her push'ta siteyi GitHub Pages'e yayınlar.
+# main dalına her push'ta önce testleri çalıştırır; testler geçerse siteyi GitHub Pages'e yayınlar.
+# Testler başarısız olursa yayın yapılmaz, canlıda son çalışan sürüm kalır.
 # Bir kez yapılacak ayar: Settings → Pages → Build and deployment → Source: "GitHub Actions".
 name: Siteyi yayınla
 
@@ -17,7 +18,19 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  test:
+    name: Testler
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node tests/run.mjs
+
   deploy:
+    name: Yayın
+    needs: test
     runs-on: ubuntu-latest
     environment:
       name: github-pages

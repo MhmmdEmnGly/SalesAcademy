@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Satış Akademisi testleri</title>
+<style>
+  body{margin:0;background:#F3F5F7;color:#13213C;font:15px/1.5 "Segoe UI",system-ui,sans-serif;padding:24px 16px}
+  main{max-width:900px;margin:0 auto}
+  h1{font-size:22px;margin:0 0 6px}
+  #sum{font-weight:600;margin:10px 0 14px}
+  #out{background:#fff;border:1px solid #DCE1E8;border-radius:10px;padding:14px;white-space:pre-wrap;font:13px/1.6 Consolas,monospace;overflow-x:auto}
+  .f{color:#B42318;font-weight:700}.p{color:#0E7C66}.i{color:#5B6474}
+  @media (prefers-color-scheme:dark){body{background:#0C1322;color:#E6EAF2}#out{background:#141E33;border-color:#25324D}.f{color:#F97066}.p{color:#3CC4A2}.i{color:#9AA4B8}}
+</style>
+</head>
+<body>
+<main>
+  <h1>Satış Akademisi testleri</h1>
+  <p>Yerelde çalıştırmak için: baslat.cmd ile siteyi aç, adres çubuğuna <code>localhost:8000/tests/run.html</code> yaz. Aynı testler GitHub'da her push'ta çalışır.</p>
+  <div id="sum">Çalışıyor…</div>
+  <div id="out"></div>
+</main>
+<script src="checks.js"></script>
+<script>
+  runAllChecks(p => fetch("../" + p, { cache:"no-store" }).then(r => { if(!r.ok) throw new Error("HTTP " + r.status); return r.text(); }))
+    .then(R => {
+      document.getElementById("sum").textContent = R.fail ? `${R.fail} kontrol başarısız, ${R.pass} geçti.` : `Hepsi geçti: ${R.pass} kontrol.`;
+      document.getElementById("sum").className = R.fail ? "f" : "p";
+      document.getElementById("out").innerHTML = R.lines.map(l => `<div class="${l[0] === "F" ? "f" : l[0] === "P" ? "p" : "i"}">${l.replace(/[&<>]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;" }[c]))}</div>`).join("");
+    })
+    .catch(e => { document.getElementById("sum").textContent = "Testler çalıştırılamadı: " + e.message; });
+</script>
+</body>
+</html>
