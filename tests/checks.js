@@ -109,7 +109,7 @@ globalThis.runAllChecks = async function(read){
       const addDays = (s, n) => { const [y, m, d] = s.split("-").map(Number); const x = new Date(y, m - 1, d); x.setDate(x.getDate() + n); return ds(x); };
       const stubs = { document:{ addEventListener(){} }, state, persist(){}, esc:s => String(s), $:() => null, $$:() => [], todayStr:() => ds(new Date()), addDays, fmtDate:s => s,
         TOP:{}, openTopic(){}, show(){}, sb:null, user:null, window:{ scrollTo(){} }, confirm:() => true };
-      const make = new Function(...Object.keys(stubs), simSrc + "\n;return { simSetData, simStart, simAdvance, simAnswer, simDailyCfg, simWeakSkills, getSim: () => sim };");
+      const make = new Function(...Object.keys(stubs), simSrc + "\n;return { simSetData, simStart, simAdvance, simAnswer, simDailyCfg, simWeakSkills, simFill, getSim: () => sim };");
       E = make(...Object.values(stubs));
       E.simSetData(cfg, sectors, na, nb);
       E.state = state;
@@ -123,6 +123,14 @@ globalThis.runAllChecks = async function(read){
         worst:o => o.reduce((b, x, i) => x.s < o[b].s ? i : b, 0)
       };
       const agg = {}, bad = [];
+      // Kart uzunluğu yanlılığı: ekranda görünen (şablonu doldurulmuş) metinlerle ölçülür
+      const lenStat = { shown:0, bestLongest:0, bestShortest:0, ratios:[] };
+      const measure = s => {
+        const texts = s.node.o.map(o => E.simFill(o.t, s.ctx)), max = Math.max(...s.node.o.map(o => o.s));
+        const bi = s.node.o.findIndex(o => o.s === max), bl = texts[bi].length, others = texts.filter((_, i) => i !== bi).map(t => t.length);
+        lenStat.shown++; if(others.every(l => bl > l)) lenStat.bestLongest++; if(others.every(l => bl < l)) lenStat.bestShortest++;
+        lenStat.ratios.push(bl / (others.reduce((a, b) => a + b, 0) / others.length));
+      };
       for(let run = 0; run < 400; run++){
         const sname = ["best", "random", "worst", "best"][run % 4];
         const c = { sector:pickKey(sectors), role:pickKey(cfg.roles), persona:pickKey(cfg.personas), stage:pickKey(cfg.stages), size:pickKey(cfg.sizes), comp:pickKey(cfg.comps),
@@ -130,7 +138,7 @@ globalThis.runAllChecks = async function(read){
         try{
           E.simStart(c); E.simAdvance();
           let guard = 0, s = E.getSim();
-          while(!s.ended && guard++ < 60){ E.simAnswer(strat[sname](s.node.o)); s = E.getSim(); }
+          while(!s.ended && guard++ < 60){ measure(s); E.simAnswer(strat[sname](s.node.o)); s = E.getSim(); }
           if(guard >= 60) bad.push("sonsuz döngü " + JSON.stringify(c));
           const A = agg[sname] = agg[sname] || { n:0, basari:0, bekle:0, kayip:0, turns:[] };
           A.n++; A[s.outcome.k]++; A.turns.push(s.turn);
@@ -145,6 +153,10 @@ globalThis.runAllChecks = async function(read){
       ok(rate("best", "basari") >= 0.9, `sim: en iyi cevaplarla başarı ≥ %90 (%${Math.round(rate("best", "basari") * 100)})`);
       ok(rate("worst", "kayip") === 1, `sim: en kötü cevaplarla hep kayıp (%${Math.round(rate("worst", "kayip") * 100)})`);
       ok(rate("random", "basari") <= 0.3, `sim: rastgele cevaplarla başarı ≤ %30 (%${Math.round(rate("random", "basari") * 100)})`);
+      const blRate = lenStat.bestLongest / Math.max(1, lenStat.shown), blRatio = avg(lenStat.ratios);
+      const bsRate = lenStat.bestShortest / Math.max(1, lenStat.shown);
+      info(`sim kart uzunluğu: ${lenStat.shown} gösterimde en iyi kart en uzun %${Math.round(blRate * 100)}, en kısa %${Math.round(bsRate * 100)} (5 kartta rastgele ≈ %20), en iyi / diğerleri ortalama oran ${blRatio.toFixed(2)} (dengeli ≈ 1.0)`);
+      ok(blRate <= 0.4 && bsRate <= 0.4 && blRatio >= 0.85 && blRatio <= 1.2, `sim: en iyi cevap uzunluğundan belli olmuyor (en uzun %${Math.round(blRate * 100)}, en kısa %${Math.round(bsRate * 100)}, ikisi de ≤ %40; oran ${blRatio.toFixed(2)}, 0.85-1.20 arası)`);
       const bt = agg.best ? avg(agg.best.turns) : 0;
       ok(bt >= 8 && bt <= 16, `sim: iyi oynanan görüşme 8-16 tur sürüyor (ortalama ${bt.toFixed(1)})`);
       // Günün görüşmesi: aynı gün herkese aynı senaryo
