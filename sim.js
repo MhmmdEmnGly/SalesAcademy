@@ -225,8 +225,9 @@ function simRenderSetup(v){
     <div class="section" style="margin-top:22px"><h3>Nasıl oynamak istersin?</h3>
       <div class="simmodes">
         <button type="button" class="simmode" data-sc="mode" data-v="kart" aria-pressed="${c.mode === "kart"}"><b>Cevap kartlarıyla</b><span>Her turda birbirine yakın 5-6 cevap kartından birini seçersin. Ücretsiz.</span></button>
-        <button type="button" class="simmode" data-sc="mode" data-v="serbest" aria-pressed="${c.mode === "serbest"}" ${SIM_AI.enabled ? "" : "disabled"}><b>Serbest cevapla (yapay zekâ)</b><span>${SIM_AI.enabled ? "Cevabını kendin yazarsın; müşteriyi yapay zekâ canlandırır. Giriş yapmış olman gerekir." : "Yakında. Yapay zekâ bağlantısı kurulunca açılacak."}</span></button>
-      </div></div>
+        <button type="button" class="simmode" data-sc="mode" data-v="serbest" aria-pressed="${c.mode === "serbest"}" ${SIM_AI.enabled ? "" : `disabled aria-disabled="true" title="Bu mod henüz aktif değil"`}><b>Serbest cevapla (yapay zekâ)${SIM_AI.enabled ? "" : ` <em class="soon">Yakında</em>`}</b><span>${SIM_AI.enabled ? "Cevabını kendin yazarsın; müşteriyi yapay zekâ canlandırır. Giriş yapmış olman gerekir." : "Cevabını kendin yazarsın, müşteriyi yapay zekâ canlandırır. Henüz aktif değil."}</span></button>
+      </div>
+      ${SIM_AI.enabled ? "" : `<p class="simnote" role="note"><b>Yapay zekâ modu yakında.</b> Serbest cevapla oynama ve yapay zekâ müşteri, ilerleyen bir sürümde gelecek. Şimdilik aşağıdaki seçeneklerle senaryonu kurup cevap kartlarıyla oynayabilirsin.</p>`}</div>
     <div class="simform">
       <div><h4>Sektör</h4>${simChips("sector", Object.entries(SIMD.sectors).map(([k, s]) => [k, s.ad]), c.sector)}</div>
       <div><h4>Sattığın ürün</h4><select id="simProduct" aria-label="Sattığın ürün" style="width:100%">${S.urunler.map((u, i) => `<option value="${i}" ${c.product === String(i) ? "selected" : ""}>${esc(u.ad)}</option>`).join("")}<option value="custom" ${c.product === "custom" ? "selected" : ""}>Kendi ürünüm…</option></select>

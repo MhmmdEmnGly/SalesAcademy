@@ -401,7 +401,11 @@ details.out summary{cursor:pointer;color:var(--muted);font-size:14px}
 .simmode b{display:block;font-size:15.5px}
 .simmode span{display:block;font-size:13.5px;color:var(--muted);margin-top:3px}
 .simmode[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
-.simmode:disabled{cursor:not-allowed;opacity:.6}
+.simmode:disabled{cursor:not-allowed;background:var(--paper);border-style:dashed;color:var(--muted);filter:grayscale(1)}
+.simmode:disabled b,.simmode:disabled span{color:var(--muted)}
+.simmode .soon{font-style:normal;font-size:11.5px;font-weight:600;padding:1px 8px;border-radius:99px;background:var(--track);color:var(--ink);margin-left:6px;vertical-align:2px}
+.simnote{margin:10px 0 0;font-size:14px;background:var(--amber-soft);border-left:4px solid var(--amber);border-radius:8px;padding:10px 14px}
+.simnote b{color:var(--amber)}
 .simform{display:grid;grid-template-columns:1fr 1fr;gap:18px 28px;margin-top:24px}
 .simform h4{margin:0 0 4px;font:600 14px/1.3 var(--text);color:var(--muted)}
 .simhint{margin:6px 0 0;font-size:13.5px;color:var(--muted)}
