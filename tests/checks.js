@@ -178,6 +178,10 @@ globalThis.runAllChecks = async function(read){
     const missing = views.filter(v => !html.includes(`id="v-${v}"`));
     ok(views.length >= 10 && !missing.length, "index.html: her sekmenin bölümü var (" + views.length + " sekme) " + first(missing));
     ok(/<script src="sim\.js"><\/script>/.test(html), "index.html: sim.js yükleniyor");
+    const icons = [...html.matchAll(/<link rel="(?:icon|apple-touch-icon|manifest)" href="([^"]+)"/g)].map(m => m[1]);
+    const iconMissing = [];
+    for(const f of icons){ try{ const c = await read(f); if(!c || !String(c).length) iconMissing.push(f); }catch(e){ iconMissing.push(f); } }
+    ok(icons.length >= 3 && !iconMissing.length, "index.html: favikon, Apple ikonu ve manifest dosyaları mevcut (" + icons.join(", ") + ") " + iconMissing.join(", "));
     const inline = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m => m[1]);
     let syntax = "";
     for(const s of inline){ try{ new Function(s); }catch(e){ syntax = e.message; } }
